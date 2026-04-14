@@ -1,0 +1,383 @@
+/* =============================================
+   ECO WEBSITE — Global Custom Styles (Tailwind)
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap');
+
+/* --- Custom Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 6px #22c55e;
+    }
+
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 14px #22c55e;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spinSlow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Utility Animation Classes --- */
+.anim-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.anim-fade-in {
+    animation: fadeIn 0.5s ease-out both;
+}
+
+.anim-glow {
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+.anim-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.anim-slide-down {
+    animation: slideDown 0.3s ease-out both;
+}
+
+.anim-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.anim-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.anim-delay-3 {
+    animation-delay: 0.3s;
+}
+
+.anim-delay-4 {
+    animation-delay: 0.4s;
+}
+
+.anim-delay-5 {
+    animation-delay: 0.5s;
+}
+
+/* --- Base Overrides --- */
+body {
+    font-family: 'Kanit', sans-serif;
+}
+
+/* --- Theme Transition --- */
+*,
+*::before,
+*::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ffd700, #b8860b);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffd700;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #0a0c10;
+}
+
+/* --- Gold Gradient Text --- */
+.text-gold-gradient {
+    background: linear-gradient(135deg, #ffd700, #f59e0b, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* --- Shimmer Button --- */
+.btn-gold-shimmer {
+    background: linear-gradient(90deg, #b8860b, #ffd700, #f59e0b, #ffd700, #b8860b);
+    background-size: 200% auto;
+    transition: all 0.3s ease;
+}
+
+.btn-gold-shimmer:hover {
+    animation: shimmer 2s linear infinite;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+/* --- Glass Panel (Light Mode) --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* --- Glass Panel (Dark Mode) --- */
+.dark .glass-panel {
+    background: rgba(17, 24, 39, 0.7);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Status Badge (Online Dot) --- */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* --- Custom Slider --- */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider-track img {
+    min-width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    font-size: 18px;
+    z-index: 10;
+}
+
+.slider-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+}
+
+.slider-btn.prev {
+    left: 12px;
+}
+
+.slider-btn.next {
+    right: 12px;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.slider-dot.active {
+    background: #ffd700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+/* --- Voucher Input --- */
+.voucher-input {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* --- Table Styles for Top-up History --- */
+.history-table th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Smooth page transitions --- */
+.page-enter {
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+/* --- Dark Mode Toggle Button --- */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    color: #b8860b;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 215, 0, 0.15);
+}
+
+.dark .theme-toggle {
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+}
+
+.dark .theme-toggle:hover {
+    background: rgba(255, 215, 0, 0.25);
+}
+
+/* --- Mobile Theme Toggle --- */
+.theme-toggle-mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #555;
+    font-size: 0.875rem;
+}
+
+.theme-toggle-mobile:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dark .theme-toggle-mobile {
+    color: #ccc;
+}
+
+.dark .theme-toggle-mobile:hover {
+    background: rgba(255, 215, 0, 0.05);
+}
+
+/* responsive slider */
+@media (max-width: 768px) {
+    .slider-track img {
+        height: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-track img {
+        height: 180px;
+    }
+}

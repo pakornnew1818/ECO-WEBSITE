@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — ECO</title>
+    <meta name="description" content="เข้าสู่ระบบเพื่อเริ่มต้นการผจญภัยในโลก ECO">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { kanit: ['Kanit', 'sans-serif'] },
+                    colors: {
+                        gold: { light: '#fff3b0', DEFAULT: '#ffd700', dark: '#b8860b' },
+                        dark: { DEFAULT: '#0a0c10', card: '#111827', panel: '#1a2029' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-dark font-kanit min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+
+    <!-- Ambient Glow Background -->
+    <div
+        class="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-gold/10 rounded-full blur-[150px] pointer-events-none">
+    </div>
+    <div
+        class="absolute bottom-[-20%] left-[-10%] w-[400px] h-[400px] bg-gold-dark/10 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <!-- Floating Particles (decorative) -->
+    <div class="absolute top-20 left-20 w-2 h-2 bg-gold/30 rounded-full anim-float"></div>
+    <div class="absolute top-40 right-32 w-1.5 h-1.5 bg-gold/20 rounded-full anim-float anim-delay-2"></div>
+    <div class="absolute bottom-32 left-1/3 w-1 h-1 bg-gold/40 rounded-full anim-float anim-delay-4"></div>
+
+    <div class="w-full max-w-md anim-fade-in-up">
+        <!-- Card -->
+        <div
+            class="glass-panel rounded-3xl p-8 sm:p-10 shadow-2xl shadow-gold/5 hover:-translate-y-1 transition-transform duration-500">
+
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <a href="/"
+                    class="inline-block text-gold font-black text-3xl tracking-widest mb-1 hover:drop-shadow-[0_0_12px_rgba(255,215,0,0.5)] transition-all">ECO</a>
+                <h1 class="text-2xl font-bold text-gold-gradient mt-2">LOGIN</h1>
+                <p class="text-white/40 text-sm mt-1 uppercase tracking-widest">Welcome back to the elite</p>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold/40 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <!-- Form -->
+            <form id="loginForm" class="space-y-5">
+                <div>
+                    <label for="username" class="block text-sm font-semibold text-white/90 mb-2">ชื่อผู้ใช้งาน
+                        (Username)</label>
+                    <input type="text" id="username" name="username"
+                        class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition-all duration-300"
+                        placeholder="กรอกชื่อผู้ใช้งาน" required>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-white/90 mb-2">รหัสผ่าน
+                        (Password)</label>
+                    <input type="password" id="password" name="password"
+                        class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition-all duration-300"
+                        placeholder="กรอกรหัสผ่าน" required>
+                </div>
+
+                <button type="submit" id="btnSubmit"
+                    class="btn-gold-shimmer w-full py-3.5 rounded-xl text-black font-bold text-base tracking-wide shadow-lg shadow-gold/20 hover:shadow-gold/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all duration-300 mt-2">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+
+            <!-- Footer Links -->
+            <div class="text-center mt-7">
+                <p class="text-white/50 text-sm">
+                    ยังไม่มีบัญชี?
+                    <a href="/pages/register.html"
+                        class="text-gold font-semibold hover:underline hover:text-gold-light transition-colors">สมัครสมาชิกที่นี่</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="/" class="text-white/30 text-xs hover:text-gold transition-colors">← กลับหน้าหลัก</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const loginData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = 'กำลังตรวจสอบ...';
+
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(loginData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'เข้าสู่ระบบสำเร็จ!',
+                        text: `ยินดีต้อนรับคุณ ${data.user.username}`,
+                        timer: 2000,
+                        showConfirmButton: false,
+                        background: '#111827',
+                        color: '#fff'
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ล้มเหลว',
+                        text: data.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+                        confirmButtonColor: '#ffd700',
+                        background: '#111827',
+                        color: '#fff'
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'เชื่อมต่อล้มเหลว',
+                    text: 'ไม่สามารถเชื่อมต่อกับ Server ได้ กรุณาลองใหม่ภายหลัง',
+                    confirmButtonColor: '#ffd700',
+                    background: '#111827',
+                    color: '#fff'
+                });
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = 'เข้าสู่ระบบ';
+            }
+        });
+    </script>
+</body>
+
+</html>

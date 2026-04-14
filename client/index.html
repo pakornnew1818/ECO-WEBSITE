@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO — Experience Classic Online</title>
+    <meta name="description" content="สัมผัสประสบการณ์การผจญภัยสุดคลาสสิกในโลกของ ECO ร่วมกับเราตอนนี้!">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { kanit: ['Kanit', 'sans-serif'] },
+                    colors: {
+                        gold: { light: '#fff3b0', DEFAULT: '#ffd700', dark: '#b8860b' },
+                        dark: { DEFAULT: '#0a0c10', card: '#111827', panel: '#1a2029' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Prevent flash of wrong theme -->
+    <script>
+            (function () {
+                const t = localStorage.getItem('eco-theme');
+                if (t === 'light') { document.documentElement.classList.remove('dark'); }
+                else { document.documentElement.classList.add('dark'); }
+            })();
+    </script>
+</head>
+
+<body
+    class="bg-gray-50 dark:bg-dark text-gray-800 dark:text-white font-kanit min-h-screen transition-colors duration-300">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-white/90 dark:bg-dark/90 backdrop-blur-xl border-b-2 border-gold/20 dark:border-gold/40 shadow-sm dark:shadow-none transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <a href="/"
+                    class="text-gold-dark dark:text-gold font-black text-2xl tracking-widest uppercase hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.6)] transition-all duration-300">ECO</a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="/"
+                        class="relative px-4 py-2 text-sm font-medium text-gold-dark dark:text-gold tracking-wide transition-all duration-300 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-3/4 after:bg-gold after:rounded">HOME</a>
+                    <a href="/pages/topup.html"
+                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">เติมเงิน</a>
+                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
+                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">DOWNLOAD</a>
+                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
+                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">PATCH</a>
+                </div>
+
+                <!-- Right Side: Theme Toggle + Auth -->
+                <div class="hidden md:flex items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="theme-toggle" title="สลับโหมดสีเข้ม/สว่าง">
+                        <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+
+                    <!-- Auth Section -->
+                    <div id="authSection" class="flex items-center gap-3">
+                        <div id="guestLinks" class="flex items-center gap-2">
+                            <a href="/pages/login.html"
+                                class="px-5 py-1.5 text-sm font-semibold border border-gold-dark/60 dark:border-gold/60 text-gold-dark dark:text-gold rounded-full hover:bg-gold hover:text-black transition-all duration-300">LOGIN</a>
+                            <a href="/pages/register.html"
+                                class="px-5 py-1.5 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all duration-300">REGISTER</a>
+                        </div>
+                        <div id="userLinks" class="hidden">
+                            <div
+                                class="flex items-center gap-3 px-4 py-1.5 bg-gold/10 border border-gold/30 rounded-full">
+                                <span class="text-gray-700 dark:text-white/90 text-sm">ยินดีต้อนรับ, <strong
+                                        id="displayUsername" class="text-gold-dark dark:text-gold">User</strong></span>
+                                <span
+                                    class="px-3 py-0.5 bg-gold/20 text-gold-dark dark:text-gold text-xs font-bold rounded-full">🪙
+                                    <span id="displayCoin">0</span> Coins</span>
+                                <a id="btnLogout"
+                                    class="text-red-500 dark:text-red-400 text-xs font-medium cursor-pointer border-l border-gray-300 dark:border-white/20 pl-3 hover:text-red-700 dark:hover:text-white transition-colors">LOGOUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button id="themeToggleMobileBtn" class="theme-toggle" title="สลับโหมดสี">
+                        <svg class="w-5 h-5 sun-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    <button id="mobileMenuBtn"
+                        class="text-gold-dark dark:text-gold p-2 hover:bg-gold/10 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 anim-slide-down">
+                <div class="flex flex-col gap-2 pt-2 border-t border-gold/20">
+                    <a href="/"
+                        class="px-4 py-2 text-gold-dark dark:text-gold font-medium rounded-lg bg-gold/10">HOME</a>
+                    <a href="/pages/topup.html"
+                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">เติมเงิน</a>
+                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
+                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">DOWNLOAD</a>
+                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
+                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">PATCH</a>
+                    <div class="flex gap-2 pt-2 border-t border-gold/20 mt-2" id="mobileAuthLinks">
+                        <a href="/pages/login.html"
+                            class="flex-1 text-center px-4 py-2 text-sm font-semibold border border-gold/60 text-gold-dark dark:text-gold rounded-full hover:bg-gold hover:text-black transition-all">LOGIN</a>
+                        <a href="/pages/register.html"
+                            class="flex-1 text-center px-4 py-2 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full">REGISTER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== BANNER SECTION ===== -->
+    <section class="pt-24 pb-10 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+
+                <!-- Left Panel: Server Status -->
+                <div class="lg:col-span-3 order-2 lg:order-1 anim-fade-in-up anim-delay-1">
+                    <div class="glass-panel rounded-2xl p-5 h-full flex flex-col gap-4">
+                        <img src="/image/2.jpg" alt="Server Banner"
+                            class="rounded-xl w-full h-32 object-cover opacity-90">
+                        <div>
+                            <h5
+                                class="text-gold-dark dark:text-gold font-bold text-sm uppercase tracking-wider border-b border-gold/30 pb-2 mb-3">
+                                SERVER STATUS</h5>
+                            <div class="flex items-center gap-2">
+                                <span class="status-dot"></span>
+                                <span class="text-green-600 dark:text-green-400 text-sm font-medium">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: Image Slider -->
+                <div class="lg:col-span-6 order-1 lg:order-2 anim-fade-in-up">
+                    <div
+                        class="slider-container rounded-2xl overflow-hidden shadow-2xl shadow-black/10 dark:shadow-gold/10 h-full min-h-[250px] lg:min-h-[400px]">
+                        <div class="slider-track" id="sliderTrack">
+                            <img src="/image/eco1.webp" alt="Update">
+                            <img src="/image/eco2.jpg" alt="Event">
+                            <img src="/image/eco3.jpg" alt="Event">
+                        </div>
+                        <button class="slider-btn prev" onclick="slideCarousel(-1)">❮</button>
+                        <button class="slider-btn next" onclick="slideCarousel(1)">❯</button>
+                        <div class="slider-dots" id="sliderDots">
+                            <span class="slider-dot active" onclick="goToSlide(0)"></span>
+                            <span class="slider-dot" onclick="goToSlide(1)"></span>
+                            <span class="slider-dot" onclick="goToSlide(2)"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Top Ranking -->
+                <div class="lg:col-span-3 order-3 anim-fade-in-up anim-delay-2">
+                    <div class="glass-panel rounded-2xl p-5 h-full">
+                        <h5 class="text-gold-dark dark:text-gold font-bold text-sm uppercase tracking-wider mb-4">🏆 Top
+                            Ranking</h5>
+                        <ol class="space-y-3">
+                            <li
+                                class="flex items-center gap-3 p-2 rounded-lg bg-gold/10 dark:bg-gold/5 hover:bg-gold/20 dark:hover:bg-gold/10 transition-colors">
+                                <span
+                                    class="w-7 h-7 flex items-center justify-center bg-gold text-black text-xs font-black rounded-full">1</span>
+                                <span class="text-sm">WarriorX — <span
+                                        class="text-gold-dark dark:text-gold/80">Lv.24</span></span>
+                            </li>
+                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
+                                <span
+                                    class="w-7 h-7 flex items-center justify-center bg-gray-400 dark:bg-gray-600 text-white text-xs font-black rounded-full">2</span>
+                                <span class="text-sm">MagePro — <span
+                                        class="text-gray-500 dark:text-white/60">Lv.21</span></span>
+                            </li>
+                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
+                                <span
+                                    class="w-7 h-7 flex items-center justify-center bg-amber-700 dark:bg-amber-800 text-white text-xs font-black rounded-full">3</span>
+                                <span class="text-sm">Thief01 — <span
+                                        class="text-gray-500 dark:text-white/60">Lv.20</span></span>
+                            </li>
+                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
+                                <span
+                                    class="w-7 h-7 flex items-center justify-center bg-gray-200 dark:bg-dark-card text-gray-500 dark:text-white/60 text-xs font-bold rounded-full">4</span>
+                                <span class="text-sm">Newzapong — <span
+                                        class="text-gray-500 dark:text-white/60">Lv.16</span></span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMMUNITY SECTION ===== -->
+    <section id="community" class="py-16 px-4 border-t border-gray-200 dark:border-gold/10">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-center text-2xl md:text-3xl font-bold uppercase mb-10 anim-fade-in-up">
+                <span class="text-gold-gradient">Join Our Community</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- News Board -->
+                <div class="glass-panel rounded-2xl overflow-hidden anim-fade-in-up anim-delay-1">
+                    <div class="bg-gradient-to-r from-gold-dark to-gold px-5 py-3">
+                        <h6 class="text-black font-bold text-sm uppercase tracking-wider">📰 NEWS</h6>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-white/5">
+                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
+                            <span
+                                class="px-2 py-0.5 bg-gold/20 text-gold-dark dark:text-gold text-xs font-bold rounded-full whitespace-nowrap">Update</span>
+                            <span
+                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Update]
+                                รายละเอียด Patch Note 1.0.8 ฉบับเต็ม</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
+                            <span
+                                class="px-2 py-0.5 bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 text-xs font-bold rounded-full whitespace-nowrap">Event</span>
+                            <span
+                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Event]
+                                กิจกรรมตะลุยดันเจี้ยนแลกรับเซตแฟชั่นลิมิเต็ด</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
+                            <span
+                                class="px-2 py-0.5 bg-gray-100 dark:bg-gray-500/20 text-gray-600 dark:text-gray-400 text-xs font-bold rounded-full whitespace-nowrap">Notice</span>
+                            <span
+                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Notice]
+                                ประกาศขยายเวลาคูณ EXP จนถึงสิ้นสัปดาห์นี้!</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Community Links -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 anim-fade-in-up anim-delay-2">
+                    <a href="#"
+                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
+                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        <h6 class="font-bold text-sm">Facebook Group</h6>
+                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Join our community</p>
+                    </a>
+                    <a href="#"
+                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"
+                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        <h6 class="font-bold text-sm">Discord Server</h6>
+                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Chat with players</p>
+                    </a>
+                    <a href="#"
+                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Official"
+                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        <h6 class="font-bold text-sm">Official Page</h6>
+                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Follow updates</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer
+        class="bg-gray-100 dark:bg-[#05070a] border-t border-gray-200 dark:border-gold/20 pt-12 pb-6 px-4 transition-colors">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <div>
+                    <img src="/image/ecologo.png" alt="ECO Logo"
+                        class="w-20 mb-4 drop-shadow-[0_0_10px_rgba(255,215,0,0.3)]">
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        สัมผัสประสบการณ์การผจญภัยสุดคลาสสิกในโลกของ ECO ร่วมกับเรา
+                    </p>
+                </div>
+                <div>
+                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">ข้อมูลเกม
+                    </h6>
+                    <div class="flex flex-col gap-2">
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ข่าวสารล่าสุด</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ข้อมูลอาชีพ</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ดาวน์โหลดเกม</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">อันดับผู้เล่น</a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">
+                        บริการลูกค้า</h6>
+                    <div class="flex flex-col gap-2">
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">แจ้งปัญหา/สอบถาม</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">เติมเงิน
+                            (Cash)</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">กฎกติกาการเล่น</a>
+                        <a href="#"
+                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">นโยบายความเป็นส่วนตัว</a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">
+                        ดาวน์โหลดตัวเข้าเกม</h6>
+                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
+                        class="block p-4 bg-white dark:bg-dark-card rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gold transition-all duration-300 hover:-translate-y-1 group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl text-gold-dark dark:text-gold font-black">PC</span>
+                            <div>
+                                <div
+                                    class="text-sm font-bold group-hover:text-gold-dark dark:group-hover:text-gold transition-colors">
+                                    Client Download</div>
+                                <div class="text-gray-500 text-xs">Version 1.0.5 | 4.2 GB</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div
+                class="text-center text-gray-400 dark:text-gray-600 text-xs border-t border-gray-200 dark:border-white/5 pt-6">
+                <p>© 2026 ECO FOR LOVE</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="customToast"
+        class="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-xl shadow-2xl text-sm font-medium z-50 hidden">
+    </div>
+
+    <script>
+        // === Theme Toggle ===
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            // Desktop icons
+            document.getElementById('sunIcon').classList.toggle('hidden', isDark);
+            document.getElementById('moonIcon').classList.toggle('hidden', !isDark);
+            // Mobile icons
+            document.querySelectorAll('.sun-icon').forEach(el => el.classList.toggle('hidden', isDark));
+            document.querySelectorAll('.moon-icon').forEach(el => el.classList.toggle('hidden', !isDark));
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('eco-theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('themeToggleMobileBtn').addEventListener('click', toggleTheme);
+        updateThemeIcons();
+
+        // === Mobile Menu Toggle ===
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        let menuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.setAttribute('d', menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
+        });
+
+        // === Image Slider ===
+        let currentSlide = 0;
+        const track = document.getElementById('sliderTrack');
+        const dots = document.querySelectorAll('.slider-dot');
+        const totalSlides = dots.length;
+        let autoSlideTimer;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        }
+        function slideCarousel(dir) { currentSlide = (currentSlide + dir + totalSlides) % totalSlides; updateSlider(); resetAutoSlide(); }
+        function goToSlide(idx) { currentSlide = idx; updateSlider(); resetAutoSlide(); }
+        function resetAutoSlide() { clearInterval(autoSlideTimer); autoSlideTimer = setInterval(() => slideCarousel(1), 5000); }
+        resetAutoSlide();
+
+        // === Toast ===
+        function showToast(message) {
+            const toast = document.getElementById('customToast');
+            toast.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        // === Auth Check ===
+        async function checkAuth() {
+            const guestLinks = document.getElementById('guestLinks');
+            const userLinks = document.getElementById('userLinks');
+            const displayUsername = document.getElementById('displayUsername');
+            try {
+                const res = await fetch('/auth/me', { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    guestLinks.classList.add('hidden');
+                    userLinks.classList.remove('hidden');
+                    displayUsername.innerText = data.user.username;
+                    const mobileAuth = document.getElementById('mobileAuthLinks');
+                    if (mobileAuth) mobileAuth.classList.add('hidden');
+                } else {
+                    guestLinks.classList.remove('hidden');
+                    userLinks.classList.add('hidden');
+                }
+            } catch (e) {
+                console.error("Error checking auth", e);
+                guestLinks.classList.remove('hidden');
+                userLinks.classList.add('hidden');
+            }
+        }
+
+        async function logoutProcess() {
+            try { await fetch('/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) { }
+            checkAuth();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            const btnLogout = document.getElementById('btnLogout');
+            if (btnLogout) {
+                btnLogout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutProcess();
+                    showToast("ออกจากระบบสำเร็จแล้ว");
+                });
+            }
+        });
+    </script>
+    <script src="/js/coinscript.js"></script>
+</body>
+
+</html>
