@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="th" class="dark">
+<html lang="th">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECO — Experience Classic Online</title>
     <meta name="description" content="สัมผัสประสบการณ์การผจญภัยสุดคลาสสิกในโลกของ ECO ร่วมกับเราตอนนี้!">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -15,101 +19,146 @@
                 extend: {
                     fontFamily: { kanit: ['Kanit', 'sans-serif'] },
                     colors: {
-                        gold: { light: '#fff3b0', DEFAULT: '#ffd700', dark: '#b8860b' },
-                        dark: { DEFAULT: '#0a0c10', card: '#111827', panel: '#1a2029' }
+                        primary: {
+                            DEFAULT: '#0058bc',
+                            container: '#0070eb',
+                            fixed: '#d8e2ff',
+                            dim: '#adc6ff',
+                            dark: '#004493',
+                        },
+                        secondary: { DEFAULT: '#405e96', container: '#a1befd' },
+                        tertiary: { DEFAULT: '#9e3d00', container: '#c64f00' },
                     }
                 }
             }
         }
     </script>
-    <!-- Prevent flash of wrong theme -->
+    <!-- Anti-flash: ใส่ dark class ก่อน render เพื่อป้องกัน flash -->
     <script>
-            (function () {
-                const t = localStorage.getItem('eco-theme');
-                if (t === 'light') { document.documentElement.classList.remove('dark'); }
-                else { document.documentElement.classList.add('dark'); }
-            })();
+        (function () {
+            if (localStorage.getItem('eco-theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
     </script>
 </head>
 
-<body
-    class="bg-gray-50 dark:bg-dark text-gray-800 dark:text-white font-kanit min-h-screen transition-colors duration-300">
+<body class="font-kanit min-h-screen eco-bg text-gray-900 dark:text-white overflow-x-hidden">
 
-    <!-- ===== NAVBAR ===== -->
-    <nav
-        class="fixed top-0 w-full z-50 bg-white/90 dark:bg-dark/90 backdrop-blur-xl border-b-2 border-gold/20 dark:border-gold/40 shadow-sm dark:shadow-none transition-colors">
+    <!-- Background Orbs -->
+    <div aria-hidden="true">
+        <div class="eco-orb eco-orb-1"></div>
+        <div class="eco-orb eco-orb-2"></div>
+        <div class="eco-orb eco-orb-3"></div>
+    </div>
+
+    <!-- =============================================
+         NAVBAR
+         ============================================= -->
+    <nav class="fixed top-0 w-full z-50 eco-glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
+
                 <!-- Brand -->
                 <a href="/"
-                    class="text-gold-dark dark:text-gold font-black text-2xl tracking-widest uppercase hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.6)] transition-all duration-300">ECO</a>
+                    class="font-black text-2xl tracking-widest uppercase
+                           text-[#0058bc] dark:text-white
+                           hover:text-[#004493] dark:hover:text-[#adc6ff]
+                           transition-all duration-300"
+                    style="text-shadow: 0 0 20px rgba(0,88,188,0.3)">
+                    ECO
+                </a>
 
                 <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-1">
-                    <a href="/"
-                        class="relative px-4 py-2 text-sm font-medium text-gold-dark dark:text-gold tracking-wide transition-all duration-300 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-3/4 after:bg-gold after:rounded">HOME</a>
-                    <a href="/pages/topup.html"
-                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">เติมเงิน</a>
-                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
-                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">DOWNLOAD</a>
-                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
-                        class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">PATCH</a>
+                    <a href="/" class="nav-link active">HOME</a>
+                    <a href="/pages/topup.html" class="nav-link">เติมเงิน</a>
+                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank" class="nav-link">DOWNLOAD</a>
+                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank" class="nav-link">PATCH</a>
                 </div>
 
-                <!-- Right Side: Theme Toggle + Auth -->
+                <!-- Right: Theme Toggle + Auth -->
                 <div class="hidden md:flex items-center gap-3">
+
                     <!-- Theme Toggle -->
-                    <button id="themeToggle" class="theme-toggle" title="สลับโหมดสีเข้ม/สว่าง">
-                        <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button onclick="toggleTheme()" class="theme-toggle" title="สลับธีม" aria-label="Toggle theme">
+                        <!-- Sun (แสดงใน dark mode → คลิกเพื่อไป light) -->
+                        <svg class="theme-sun w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
-                        <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- Moon (แสดงใน light mode → คลิกเพื่อไป dark) -->
+                        <svg class="theme-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                         </svg>
                     </button>
 
-                    <!-- Auth Section -->
+                    <!-- Auth -->
                     <div id="authSection" class="flex items-center gap-3">
+                        <!-- Guest -->
                         <div id="guestLinks" class="flex items-center gap-2">
                             <a href="/pages/login.html"
-                                class="px-5 py-1.5 text-sm font-semibold border border-gold-dark/60 dark:border-gold/60 text-gold-dark dark:text-gold rounded-full hover:bg-gold hover:text-black transition-all duration-300">LOGIN</a>
+                                class="px-5 py-1.5 text-sm font-semibold rounded-full transition-all duration-300
+                                       text-[#0058bc] border border-[#0058bc]/40
+                                       hover:bg-[#0058bc]/10 hover:border-[#0058bc]/70
+                                       dark:text-white/80 dark:border-white/25
+                                       dark:hover:bg-white/10 dark:hover:text-white dark:hover:border-white/50">
+                                LOGIN
+                            </a>
                             <a href="/pages/register.html"
-                                class="px-5 py-1.5 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all duration-300">REGISTER</a>
+                                class="px-5 py-1.5 text-sm font-bold text-white rounded-full
+                                       bg-[#c64f00] hover:bg-[#9e3d00]
+                                       shadow-[0_0_18px_rgba(198,79,0,0.4)]
+                                       hover:shadow-[0_0_28px_rgba(198,79,0,0.6)]
+                                       transition-all duration-300">
+                                REGISTER
+                            </a>
                         </div>
+                        <!-- Logged-in -->
                         <div id="userLinks" class="hidden">
-                            <div
-                                class="flex items-center gap-3 px-4 py-1.5 bg-gold/10 border border-gold/30 rounded-full">
-                                <span class="text-gray-700 dark:text-white/90 text-sm">ยินดีต้อนรับ, <strong
-                                        id="displayUsername" class="text-gold-dark dark:text-gold">User</strong></span>
-                                <span
-                                    class="px-3 py-0.5 bg-gold/20 text-gold-dark dark:text-gold text-xs font-bold rounded-full">🪙
-                                    <span id="displayCoin">0</span> Coins</span>
+                            <div class="flex items-center gap-3 px-4 py-1.5 rounded-full
+                                        bg-[#0058bc]/10 border border-[#0058bc]/20
+                                        dark:bg-white/8 dark:border-white/15">
+                                <span class="text-gray-800 dark:text-white/85 text-sm">
+                                    ยินดีต้อนรับ,
+                                    <strong id="displayUsername" class="text-[#0058bc] dark:text-[#adc6ff]">User</strong>
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold
+                                             bg-[#0058bc]/15 text-[#0058bc]
+                                             dark:bg-white/10 dark:text-[#adc6ff]">
+                                    🪙 <span id="displayCoin">0</span> Coins
+                                </span>
                                 <a id="btnLogout"
-                                    class="text-red-500 dark:text-red-400 text-xs font-medium cursor-pointer border-l border-gray-300 dark:border-white/20 pl-3 hover:text-red-700 dark:hover:text-white transition-colors">LOGOUT</a>
+                                    class="text-red-500 dark:text-red-400 text-xs font-medium cursor-pointer
+                                           border-l border-gray-300 dark:border-white/15 pl-3
+                                           hover:text-red-700 dark:hover:text-red-300 transition-colors">
+                                    LOGOUT
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Mobile Hamburger -->
+                <!-- Mobile: Theme + Hamburger -->
                 <div class="flex md:hidden items-center gap-2">
-                    <button id="themeToggleMobileBtn" class="theme-toggle" title="สลับโหมดสี">
-                        <svg class="w-5 h-5 sun-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button onclick="toggleTheme()" class="theme-toggle" title="สลับธีม">
+                        <svg class="theme-sun w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
-                        <svg class="w-5 h-5 moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="theme-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                         </svg>
                     </button>
                     <button id="mobileMenuBtn"
-                        class="text-gold-dark dark:text-gold p-2 hover:bg-gold/10 rounded-lg transition-colors">
+                        class="text-[#0058bc] dark:text-white/80 p-2
+                               hover:bg-[#0058bc]/10 dark:hover:bg-white/10
+                               rounded-lg transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
@@ -117,281 +166,611 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden md:hidden pb-4 anim-slide-down">
-                <div class="flex flex-col gap-2 pt-2 border-t border-gold/20">
-                    <a href="/"
-                        class="px-4 py-2 text-gold-dark dark:text-gold font-medium rounded-lg bg-gold/10">HOME</a>
+                <div class="flex flex-col gap-1 pt-3 border-t border-gray-200 dark:border-white/10">
+                    <a href="/" class="px-4 py-2.5 font-medium rounded-xl
+                                       text-[#0058bc] bg-[#0058bc]/10
+                                       dark:text-white dark:bg-white/10">HOME</a>
                     <a href="/pages/topup.html"
-                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">เติมเงิน</a>
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 hover:text-[#0058bc] hover:bg-[#0058bc]/8
+                               dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8">เติมเงิน</a>
                     <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
-                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">DOWNLOAD</a>
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 hover:text-[#0058bc] hover:bg-[#0058bc]/8
+                               dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8">DOWNLOAD</a>
                     <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
-                        class="px-4 py-2 text-gray-600 dark:text-white/80 hover:text-gold-dark dark:hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">PATCH</a>
-                    <div class="flex gap-2 pt-2 border-t border-gold/20 mt-2" id="mobileAuthLinks">
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 hover:text-[#0058bc] hover:bg-[#0058bc]/8
+                               dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8">PATCH</a>
+
+                    <!-- Mobile Guest -->
+                    <div class="flex gap-2 pt-3 mt-1 border-t border-gray-200 dark:border-white/10" id="mobileAuthLinks">
                         <a href="/pages/login.html"
-                            class="flex-1 text-center px-4 py-2 text-sm font-semibold border border-gold/60 text-gold-dark dark:text-gold rounded-full hover:bg-gold hover:text-black transition-all">LOGIN</a>
+                            class="flex-1 text-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all
+                                   text-[#0058bc] border border-[#0058bc]/40 hover:bg-[#0058bc]/10
+                                   dark:text-white dark:border-white/25 dark:hover:bg-white/10">
+                            LOGIN
+                        </a>
                         <a href="/pages/register.html"
-                            class="flex-1 text-center px-4 py-2 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full">REGISTER</a>
+                            class="flex-1 text-center px-4 py-2.5 text-sm font-bold rounded-xl
+                                   bg-[#c64f00] text-white shadow-[0_0_14px_rgba(198,79,0,0.4)]">
+                            REGISTER
+                        </a>
+                    </div>
+
+                    <!-- Mobile User Info -->
+                    <div id="mobileUserInfo" class="hidden pt-3 mt-1 border-t border-gray-200 dark:border-white/10">
+                        <div class="flex items-center justify-between px-4 py-3 rounded-xl
+                                    bg-[#0058bc]/8 border border-[#0058bc]/15
+                                    dark:bg-white/8 dark:border-white/10">
+                            <div>
+                                <p class="text-gray-500 dark:text-white/50 text-xs">ยินดีต้อนรับ</p>
+                                <p id="mobileUsername" class="text-[#0058bc] dark:text-[#adc6ff] font-bold text-sm">User</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-gray-700 dark:text-white/70 text-sm">
+                                    🪙 <span id="mobileCoin">0</span>
+                                </span>
+                                <button id="mobileLogoutBtn"
+                                    class="text-red-500 dark:text-red-400 text-xs font-medium
+                                           border-l border-gray-300 dark:border-white/20 pl-3
+                                           hover:text-red-700 dark:hover:text-red-300 transition-colors">
+                                    LOGOUT
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ===== BANNER SECTION ===== -->
-    <section class="pt-24 pb-10 px-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+    <!-- =============================================
+         HERO — FULL-SCREEN CAROUSEL
+         (white text ใช้ได้ทุก mode เพราะมี dark overlay)
+         ============================================= -->
+    <section class="relative h-screen min-h-[600px] overflow-hidden">
+        <div class="hero-slider-track" id="sliderTrack">
+            <img src="/image/eco1.webp" alt="ECO Update" draggable="false">
+            <img src="/image/eco2.jpg"  alt="ECO Event"  draggable="false">
+            <img src="/image/eco3.jpg"  alt="ECO Event"  draggable="false">
+        </div>
 
-                <!-- Left Panel: Server Status -->
-                <div class="lg:col-span-3 order-2 lg:order-1 anim-fade-in-up anim-delay-1">
-                    <div class="glass-panel rounded-2xl p-5 h-full flex flex-col gap-4">
-                        <img src="/image/2.jpg" alt="Server Banner"
-                            class="rounded-xl w-full h-32 object-cover opacity-90">
-                        <div>
-                            <h5
-                                class="text-gold-dark dark:text-gold font-bold text-sm uppercase tracking-wider border-b border-gold/30 pb-2 mb-3">
-                                SERVER STATUS</h5>
-                            <div class="flex items-center gap-2">
-                                <span class="status-dot"></span>
-                                <span class="text-green-600 dark:text-green-400 text-sm font-medium">Online</span>
+        <!-- Gradient overlays -->
+        <div class="absolute inset-0 z-10 pointer-events-none
+                    bg-gradient-to-t from-[#000d22] via-[#000d22]/50 to-[#000d22]/20"></div>
+        <div class="absolute inset-0 z-10 pointer-events-none
+                    bg-gradient-to-b from-[#000d22]/65 via-transparent to-transparent"></div>
+
+        <!-- Hero Content -->
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-end pb-16 md:pb-20 px-4">
+            <div class="text-center mb-10 anim-fade-in-up">
+                <h1 class="text-[5.5rem] md:text-[9rem] font-black text-white tracking-widest leading-none mb-3"
+                    style="text-shadow: 0 0 60px rgba(0,112,235,0.9), 0 0 140px rgba(0,88,188,0.45);">
+                    ECO
+                </h1>
+                <p class="text-[#adc6ff] text-base md:text-xl font-light tracking-[0.35em] uppercase mb-2">
+                    Experience Classic Online
+                </p>
+                <p class="text-white/60 text-sm tracking-wide">
+                    สัมผัสประสบการณ์การผจญภัยสุดคลาสสิก &nbsp;·&nbsp; เล่นฟรีตลอดกาล
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 mb-10 anim-fade-in-up anim-delay-2">
+                <a href="/pages/register.html"
+                    class="group flex items-center gap-3 px-10 py-4 min-w-[220px] justify-center
+                           bg-[#c64f00] hover:bg-[#b34700] text-white font-bold text-lg rounded-2xl
+                           shadow-[0_4px_40px_rgba(198,79,0,0.65)]
+                           hover:shadow-[0_6px_56px_rgba(198,79,0,0.85)]
+                           hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+                    <span class="text-2xl leading-none">🎮</span>
+                    <span>สมัครเล่นฟรี</span>
+                    <svg class="w-4 h-4 opacity-70 group-hover:translate-x-1 transition-transform"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
+                    class="flex items-center gap-3 px-10 py-4 min-w-[220px] justify-center
+                           bg-white/15 hover:bg-white/25 backdrop-blur-lg
+                           text-white font-bold text-lg rounded-2xl
+                           border-2 border-white/30 hover:border-white/60
+                           hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+                    <svg class="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    <span>ดาวน์โหลด Client</span>
+                </a>
+            </div>
+
+            <!-- Dots -->
+            <div class="flex items-center gap-2 anim-fade-in-up anim-delay-3" id="sliderDots">
+                <button class="hero-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                <button class="hero-dot"        onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                <button class="hero-dot"        onclick="goToSlide(2)" aria-label="Slide 3"></button>
+            </div>
+        </div>
+
+        <button class="hero-arrow prev" onclick="slideCarousel(-1)" aria-label="Previous">&#10094;</button>
+        <button class="hero-arrow next" onclick="slideCarousel(1)"  aria-label="Next">&#10095;</button>
+    </section>
+
+    <!-- =============================================
+         FEATURE SECTION
+         ============================================= -->
+    <section class="relative z-10 py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Section Label -->
+            <div class="flex items-center gap-4 mb-10 anim-fade-in-up">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-white/20 to-transparent"></div>
+                <span class="text-gray-500 dark:text-white/55 text-xs font-semibold tracking-[0.25em] uppercase">Latest Info</span>
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-white/20 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-6 items-start">
+
+                <!-- NEWS — 8 col -->
+                <div class="col-span-12 lg:col-span-8 anim-fade-in-up">
+                    <div class="eco-glass rounded-3xl overflow-hidden h-full flex flex-col">
+
+                        <!-- Header -->
+                        <div class="flex items-center gap-3 px-6 py-4
+                                    border-b border-gray-200 dark:border-white/8">
+                            <div class="w-8 h-8 rounded-xl flex items-center justify-center text-base
+                                        bg-[#0058bc]/15 border border-[#0058bc]/20
+                                        dark:bg-[#0070eb]/25 dark:border-[#0070eb]/30">
+                                📰
+                            </div>
+                            <h2 class="font-bold text-base text-gray-900 dark:text-white tracking-wide">
+                                NEWS &amp; UPDATES
+                            </h2>
+                            <span class="ml-auto px-3 py-1 text-xs font-bold rounded-full
+                                         bg-[#0058bc]/12 text-[#0058bc] border border-[#0058bc]/20
+                                         dark:bg-[#0070eb]/20 dark:text-[#adc6ff] dark:border-[#0070eb]/30">
+                                ล่าสุด
+                            </span>
+                        </div>
+
+                        <!-- News Items -->
+                        <div class="divide-y divide-gray-100 dark:divide-white/5 flex-1">
+
+                            <!-- Item 1 -->
+                            <a href="#" class="flex items-center gap-4 px-6 py-4
+                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
+                                               transition-colors group">
+                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
+                                             bg-[#0058bc]/15 text-[#0058bc] border border-[#0058bc]/20
+                                             dark:bg-[#0070eb]/25 dark:text-[#adc6ff] dark:border-[#0070eb]/30">
+                                    Update
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm truncate transition-colors
+                                              text-gray-700 group-hover:text-[#0058bc]
+                                              dark:text-white/85 dark:group-hover:text-white">
+                                        [Update] รายละเอียด Patch Note 1.0.8 ฉบับเต็ม
+                                    </p>
+                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">14 เม.ย. 2569</p>
+                                </div>
+                                <svg class="w-4 h-4 shrink-0 transition-all
+                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
+                                            dark:text-white/25 dark:group-hover:text-white/60"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+
+                            <!-- Item 2 -->
+                            <a href="#" class="flex items-center gap-4 px-6 py-4
+                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
+                                               transition-colors group">
+                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
+                                             bg-cyan-100 text-cyan-700 border border-cyan-200
+                                             dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/25">
+                                    Event
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm truncate transition-colors
+                                              text-gray-700 group-hover:text-[#0058bc]
+                                              dark:text-white/85 dark:group-hover:text-white">
+                                        [Event] กิจกรรมตะลุยดันเจี้ยนแลกรับเซตแฟชั่นลิมิเต็ด
+                                    </p>
+                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">12 เม.ย. 2569</p>
+                                </div>
+                                <svg class="w-4 h-4 shrink-0 transition-all
+                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
+                                            dark:text-white/25 dark:group-hover:text-white/60"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+
+                            <!-- Item 3 -->
+                            <a href="#" class="flex items-center gap-4 px-6 py-4
+                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
+                                               transition-colors group">
+                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
+                                             bg-gray-100 text-gray-600 border border-gray-200
+                                             dark:bg-white/10 dark:text-white/60 dark:border-white/10">
+                                    Notice
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm truncate transition-colors
+                                              text-gray-700 group-hover:text-[#0058bc]
+                                              dark:text-white/85 dark:group-hover:text-white">
+                                        [Notice] ประกาศขยายเวลาคูณ EXP จนถึงสิ้นสัปดาห์นี้!
+                                    </p>
+                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">10 เม.ย. 2569</p>
+                                </div>
+                                <svg class="w-4 h-4 shrink-0 transition-all
+                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
+                                            dark:text-white/25 dark:group-hover:text-white/60"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+
+                            <!-- Item 4 -->
+                            <a href="#" class="flex items-center gap-4 px-6 py-4
+                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
+                                               transition-colors group">
+                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
+                                             bg-purple-100 text-purple-700 border border-purple-200
+                                             dark:bg-purple-500/20 dark:text-purple-400 dark:border-purple-500/25">
+                                    Patch
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm truncate transition-colors
+                                              text-gray-700 group-hover:text-[#0058bc]
+                                              dark:text-white/85 dark:group-hover:text-white">
+                                        [Patch] อัปเดต Client Patch 1.0.8 — ดาวน์โหลดก่อนเข้าเกม
+                                    </p>
+                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">8 เม.ย. 2569</p>
+                                </div>
+                                <svg class="w-4 h-4 shrink-0 transition-all
+                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
+                                            dark:text-white/25 dark:group-hover:text-white/60"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+
+                            <!-- Item 5 -->
+                            <a href="#" class="flex items-center gap-4 px-6 py-4
+                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
+                                               transition-colors group">
+                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
+                                             bg-cyan-100 text-cyan-700 border border-cyan-200
+                                             dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/25">
+                                    Event
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm truncate transition-colors
+                                              text-gray-700 group-hover:text-[#0058bc]
+                                              dark:text-white/85 dark:group-hover:text-white">
+                                        [Event] โบนัสเติมเงิน 50% ฉลองครบรอบปีแรก ECO Classic
+                                    </p>
+                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">5 เม.ย. 2569</p>
+                                </div>
+                                <svg class="w-4 h-4 shrink-0 transition-all
+                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
+                                            dark:text-white/25 dark:group-hover:text-white/60"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="px-6 py-4 border-t border-gray-200 dark:border-white/8">
+                            <a href="#" class="flex items-center gap-2 w-fit text-sm transition-colors
+                                               text-[#0058bc] hover:text-[#004493]
+                                               dark:text-[#adc6ff] dark:hover:text-white">
+                                ดูข่าวสารทั้งหมด
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column — 4 col -->
+                <div class="col-span-12 lg:col-span-4 flex flex-col gap-6 anim-fade-in-up anim-delay-1">
+
+                    <!-- SERVER STATUS -->
+                    <div class="eco-glass rounded-3xl p-6">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-8 h-8 rounded-xl flex items-center justify-center text-base
+                                        bg-green-100 border border-green-200
+                                        dark:bg-green-500/20 dark:border-green-500/25">
+                                🖥️
+                            </div>
+                            <h2 class="font-bold text-base text-gray-900 dark:text-white">Server Status</h2>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-4 rounded-2xl mb-4
+                                    bg-green-50 border border-green-200
+                                    dark:bg-green-500/10 dark:border-green-500/20">
+                            <div class="status-dot"></div>
+                            <div class="flex-1">
+                                <p class="text-green-700 dark:text-green-400 font-bold text-sm">Online</p>
+                                <p class="text-gray-500 dark:text-white/45 text-xs">ECO Classic Server</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-800 dark:text-white/85 font-bold text-sm">128</p>
+                                <p class="text-gray-500 dark:text-white/45 text-xs">ผู้เล่นออนไลน์</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-3 rounded-2xl text-center
+                                        bg-gray-50 border border-gray-200
+                                        dark:bg-white/5 dark:border-white/5">
+                                <p class="font-bold text-lg text-[#0058bc] dark:text-[#adc6ff]">99.9%</p>
+                                <p class="text-xs mt-0.5 text-gray-500 dark:text-white/40">Uptime</p>
+                            </div>
+                            <div class="p-3 rounded-2xl text-center
+                                        bg-gray-50 border border-gray-200
+                                        dark:bg-white/5 dark:border-white/5">
+                                <p class="font-bold text-lg text-[#0058bc] dark:text-[#adc6ff]">24ms</p>
+                                <p class="text-xs mt-0.5 text-gray-500 dark:text-white/40">Latency</p>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Center: Image Slider -->
-                <div class="lg:col-span-6 order-1 lg:order-2 anim-fade-in-up">
-                    <div
-                        class="slider-container rounded-2xl overflow-hidden shadow-2xl shadow-black/10 dark:shadow-gold/10 h-full min-h-[250px] lg:min-h-[400px]">
-                        <div class="slider-track" id="sliderTrack">
-                            <img src="/image/eco1.webp" alt="Update">
-                            <img src="/image/eco2.jpg" alt="Event">
-                            <img src="/image/eco3.jpg" alt="Event">
+                    <!-- TOP RANKING -->
+                    <div class="eco-glass rounded-3xl p-6">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-8 h-8 rounded-xl flex items-center justify-center text-base
+                                        bg-yellow-100 border border-yellow-200
+                                        dark:bg-yellow-500/20 dark:border-yellow-500/25">
+                                🏆
+                            </div>
+                            <h2 class="font-bold text-base text-gray-900 dark:text-white">Top Ranking</h2>
                         </div>
-                        <button class="slider-btn prev" onclick="slideCarousel(-1)">❮</button>
-                        <button class="slider-btn next" onclick="slideCarousel(1)">❯</button>
-                        <div class="slider-dots" id="sliderDots">
-                            <span class="slider-dot active" onclick="goToSlide(0)"></span>
-                            <span class="slider-dot" onclick="goToSlide(1)"></span>
-                            <span class="slider-dot" onclick="goToSlide(2)"></span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Right Panel: Top Ranking -->
-                <div class="lg:col-span-3 order-3 anim-fade-in-up anim-delay-2">
-                    <div class="glass-panel rounded-2xl p-5 h-full">
-                        <h5 class="text-gold-dark dark:text-gold font-bold text-sm uppercase tracking-wider mb-4">🏆 Top
-                            Ranking</h5>
-                        <ol class="space-y-3">
-                            <li
-                                class="flex items-center gap-3 p-2 rounded-lg bg-gold/10 dark:bg-gold/5 hover:bg-gold/20 dark:hover:bg-gold/10 transition-colors">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center bg-gold text-black text-xs font-black rounded-full">1</span>
-                                <span class="text-sm">WarriorX — <span
-                                        class="text-gold-dark dark:text-gold/80">Lv.24</span></span>
+                        <ol class="space-y-2.5">
+                            <!-- Rank 1 -->
+                            <li class="flex items-center gap-3 p-3 rounded-2xl
+                                       bg-yellow-50 border border-yellow-200
+                                       dark:bg-yellow-500/10 dark:border-yellow-500/20
+                                       hover:bg-yellow-100 dark:hover:bg-yellow-500/20 transition-colors">
+                                <div class="w-8 h-8 flex items-center justify-center shrink-0
+                                            bg-yellow-500 text-black text-xs font-black rounded-full">1</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-gray-900 dark:text-white font-bold text-sm truncate">WarriorX</p>
+                                    <p class="text-gray-500 dark:text-white/45 text-xs">Lv.24</p>
+                                </div>
+                                <span class="text-yellow-500 text-lg leading-none">👑</span>
                             </li>
-                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center bg-gray-400 dark:bg-gray-600 text-white text-xs font-black rounded-full">2</span>
-                                <span class="text-sm">MagePro — <span
-                                        class="text-gray-500 dark:text-white/60">Lv.21</span></span>
+                            <!-- Rank 2 -->
+                            <li class="flex items-center gap-3 p-3 rounded-2xl
+                                       bg-gray-50 border border-gray-200
+                                       dark:bg-white/5 dark:border-white/8
+                                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                                <div class="w-8 h-8 flex items-center justify-center shrink-0
+                                            bg-slate-400 text-white text-xs font-black rounded-full">2</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-gray-700 dark:text-white/85 font-semibold text-sm truncate">MagePro</p>
+                                    <p class="text-gray-500 dark:text-white/40 text-xs">Lv.21</p>
+                                </div>
                             </li>
-                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center bg-amber-700 dark:bg-amber-800 text-white text-xs font-black rounded-full">3</span>
-                                <span class="text-sm">Thief01 — <span
-                                        class="text-gray-500 dark:text-white/60">Lv.20</span></span>
+                            <!-- Rank 3 -->
+                            <li class="flex items-center gap-3 p-3 rounded-2xl
+                                       bg-gray-50 border border-gray-200
+                                       dark:bg-white/5 dark:border-white/8
+                                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                                <div class="w-8 h-8 flex items-center justify-center shrink-0
+                                            bg-amber-700 text-white text-xs font-black rounded-full">3</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-gray-700 dark:text-white/85 font-semibold text-sm truncate">Thief01</p>
+                                    <p class="text-gray-500 dark:text-white/40 text-xs">Lv.20</p>
+                                </div>
                             </li>
-                            <li class="flex items-center gap-3 p-2 rounded-lg hover:bg-gold/10 transition-colors">
-                                <span
-                                    class="w-7 h-7 flex items-center justify-center bg-gray-200 dark:bg-dark-card text-gray-500 dark:text-white/60 text-xs font-bold rounded-full">4</span>
-                                <span class="text-sm">Newzapong — <span
-                                        class="text-gray-500 dark:text-white/60">Lv.16</span></span>
+                            <!-- Rank 4 -->
+                            <li class="flex items-center gap-3 p-3 rounded-2xl
+                                       bg-gray-50 border border-gray-100
+                                       dark:bg-white/4 dark:border-white/6
+                                       hover:bg-gray-100 dark:hover:bg-white/8 transition-colors">
+                                <div class="w-8 h-8 flex items-center justify-center shrink-0
+                                            bg-gray-200 dark:bg-white/10
+                                            text-gray-500 dark:text-white/60 text-xs font-bold rounded-full">4</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-gray-600 dark:text-white/70 font-semibold text-sm truncate">Newzapong</p>
+                                    <p class="text-gray-400 dark:text-white/35 text-xs">Lv.16</p>
+                                </div>
                             </li>
                         </ol>
+
+                        <a href="#" class="mt-4 block text-center text-xs transition-colors
+                                           text-[#0058bc] hover:text-[#004493]
+                                           dark:text-[#adc6ff] dark:hover:text-white">
+                            ดู Ranking ทั้งหมด →
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== COMMUNITY SECTION ===== -->
-    <section id="community" class="py-16 px-4 border-t border-gray-200 dark:border-gold/10">
+    <!-- =============================================
+         FOOTER
+         ============================================= -->
+    <footer class="relative z-10 pt-16 pb-8 px-4
+                   border-t border-gray-200 dark:border-white/8">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-2xl md:text-3xl font-bold uppercase mb-10 anim-fade-in-up">
-                <span class="text-gold-gradient">Join Our Community</span>
-            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- News Board -->
-                <div class="glass-panel rounded-2xl overflow-hidden anim-fade-in-up anim-delay-1">
-                    <div class="bg-gradient-to-r from-gold-dark to-gold px-5 py-3">
-                        <h6 class="text-black font-bold text-sm uppercase tracking-wider">📰 NEWS</h6>
-                    </div>
-                    <div class="divide-y divide-gray-100 dark:divide-white/5">
-                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
-                            <span
-                                class="px-2 py-0.5 bg-gold/20 text-gold-dark dark:text-gold text-xs font-bold rounded-full whitespace-nowrap">Update</span>
-                            <span
-                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Update]
-                                รายละเอียด Patch Note 1.0.8 ฉบับเต็ม</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
-                            <span
-                                class="px-2 py-0.5 bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 text-xs font-bold rounded-full whitespace-nowrap">Event</span>
-                            <span
-                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Event]
-                                กิจกรรมตะลุยดันเจี้ยนแลกรับเซตแฟชั่นลิมิเต็ด</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-3 px-5 py-4 hover:bg-gold/5 transition-colors group">
-                            <span
-                                class="px-2 py-0.5 bg-gray-100 dark:bg-gray-500/20 text-gray-600 dark:text-gray-400 text-xs font-bold rounded-full whitespace-nowrap">Notice</span>
-                            <span
-                                class="text-gray-600 dark:text-white/80 text-sm group-hover:text-gold-dark dark:group-hover:text-gold transition-colors truncate">[Notice]
-                                ประกาศขยายเวลาคูณ EXP จนถึงสิ้นสัปดาห์นี้!</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Community Links -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 anim-fade-in-up anim-delay-2">
-                    <a href="#"
-                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
-                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
-                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
-                        <h6 class="font-bold text-sm">Facebook Group</h6>
-                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Join our community</p>
-                    </a>
-                    <a href="#"
-                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"
-                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
-                        <h6 class="font-bold text-sm">Discord Server</h6>
-                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Chat with players</p>
-                    </a>
-                    <a href="#"
-                        class="glass-panel rounded-2xl p-6 text-center hover:border-gold/60 hover:-translate-y-1 transition-all duration-300 group">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Official"
-                            class="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform">
-                        <h6 class="font-bold text-sm">Official Page</h6>
-                        <p class="text-gray-400 dark:text-white/50 text-xs mt-1">Follow updates</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer
-        class="bg-gray-100 dark:bg-[#05070a] border-t border-gray-200 dark:border-gold/20 pt-12 pb-6 px-4 transition-colors">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Brand + Social -->
                 <div>
-                    <img src="/image/ecologo.png" alt="ECO Logo"
-                        class="w-20 mb-4 drop-shadow-[0_0_10px_rgba(255,215,0,0.3)]">
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        สัมผัสประสบการณ์การผจญภัยสุดคลาสสิกในโลกของ ECO ร่วมกับเรา
+                    <div class="font-black text-4xl tracking-widest mb-4
+                                text-[#0058bc] dark:text-white"
+                        style="text-shadow: 0 0 16px rgba(0,88,188,0.25)">ECO</div>
+                    <p class="text-sm leading-relaxed mb-6
+                               text-gray-500 dark:text-white/45">
+                        สัมผัสประสบการณ์การผจญภัยสุดคลาสสิกในโลกของ ECO<br>
+                        ร่วมกับชุมชนนักผจญภัยมากกว่า 10,000 คน
                     </p>
-                </div>
-                <div>
-                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">ข้อมูลเกม
-                    </h6>
-                    <div class="flex flex-col gap-2">
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ข่าวสารล่าสุด</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ข้อมูลอาชีพ</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">ดาวน์โหลดเกม</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">อันดับผู้เล่น</a>
+                    <div class="flex gap-3">
+                        <a href="#" title="Facebook"
+                            class="w-10 h-10 rounded-xl eco-glass flex items-center justify-center
+                                   hover:bg-blue-100 dark:hover:bg-blue-600/30 transition-all duration-300">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                                 alt="Facebook" class="w-5 h-5 object-contain">
+                        </a>
+                        <a href="#" title="Discord"
+                            class="w-10 h-10 rounded-xl eco-glass flex items-center justify-center
+                                   hover:bg-indigo-100 dark:hover:bg-indigo-600/30 transition-all duration-300">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
+                                 alt="Discord" class="w-5 h-5 object-contain">
+                        </a>
+                        <a href="#" title="Official"
+                            class="w-10 h-10 rounded-xl eco-glass flex items-center justify-center
+                                   hover:bg-blue-100 dark:hover:bg-[#0070eb]/30 transition-all duration-300">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png"
+                                 alt="Official" class="w-5 h-5 object-contain">
+                        </a>
                     </div>
                 </div>
+
+                <!-- Game Info -->
                 <div>
-                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">
-                        บริการลูกค้า</h6>
-                    <div class="flex flex-col gap-2">
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">แจ้งปัญหา/สอบถาม</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">เติมเงิน
-                            (Cash)</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">กฎกติกาการเล่น</a>
-                        <a href="#"
-                            class="text-gray-500 text-sm hover:text-gold-dark dark:hover:text-gold hover:pl-1 transition-all duration-300">นโยบายความเป็นส่วนตัว</a>
+                    <h3 class="font-bold text-xs uppercase tracking-[0.2em] mb-5
+                                text-gray-600 dark:text-white/70">ข้อมูลเกม</h3>
+                    <div class="flex flex-col gap-2.5">
+                        <a href="#" class="footer-link">ข่าวสารล่าสุด</a>
+                        <a href="#" class="footer-link">ข้อมูลอาชีพ</a>
+                        <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank" class="footer-link">ดาวน์โหลดเกม</a>
+                        <a href="#" class="footer-link">อันดับผู้เล่น</a>
+                        <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank" class="footer-link">PATCH ล่าสุด</a>
                     </div>
                 </div>
+
+                <!-- Customer Service -->
                 <div>
-                    <h6 class="text-gold-dark dark:text-gold font-bold uppercase text-sm mb-4 tracking-wider">
-                        ดาวน์โหลดตัวเข้าเกม</h6>
+                    <h3 class="font-bold text-xs uppercase tracking-[0.2em] mb-5
+                                text-gray-600 dark:text-white/70">บริการลูกค้า</h3>
+                    <div class="flex flex-col gap-2.5">
+                        <a href="#" class="footer-link">แจ้งปัญหา / สอบถาม</a>
+                        <a href="/pages/topup.html" class="footer-link">เติมเงิน (Cash)</a>
+                        <a href="#" class="footer-link">กฎกติกาการเล่น</a>
+                        <a href="#" class="footer-link">นโยบายความเป็นส่วนตัว</a>
+                    </div>
+                </div>
+
+                <!-- Download -->
+                <div>
+                    <h3 class="font-bold text-xs uppercase tracking-[0.2em] mb-5
+                                text-gray-600 dark:text-white/70">ดาวน์โหลดตัวเข้าเกม</h3>
                     <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
-                        class="block p-4 bg-white dark:bg-dark-card rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gold transition-all duration-300 hover:-translate-y-1 group">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl text-gold-dark dark:text-gold font-black">PC</span>
-                            <div>
-                                <div
-                                    class="text-sm font-bold group-hover:text-gold-dark dark:group-hover:text-gold transition-colors">
-                                    Client Download</div>
-                                <div class="text-gray-500 text-xs">Version 1.0.5 | 4.2 GB</div>
-                            </div>
+                        class="group flex items-center gap-4 p-4 rounded-2xl eco-glass mb-4
+                               hover:border-[#0058bc]/30 dark:hover:bg-white/10
+                               transition-all duration-300 hover:-translate-y-0.5">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0
+                                    bg-[#0058bc]/15 border border-[#0058bc]/20
+                                    dark:bg-[#0070eb]/25 dark:border-[#0070eb]/30">
+                            <svg class="w-6 h-6 text-[#0058bc] dark:text-[#adc6ff]"
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm transition-colors
+                                      text-gray-900 group-hover:text-[#0058bc]
+                                      dark:text-white dark:group-hover:text-[#adc6ff]">
+                                PC Client Download
+                            </p>
+                            <p class="text-xs mt-0.5 text-gray-500 dark:text-white/40">Version 1.0.8 · 4.2 GB</p>
                         </div>
                     </a>
+
+                    <!-- Contact Box -->
+                    <div class="p-4 eco-glass rounded-2xl">
+                        <p class="text-xs mb-2 font-semibold uppercase tracking-wider
+                                   text-gray-500 dark:text-white/55">ช่องทางติดต่อ</p>
+                        <a href="#" class="flex items-center gap-2 text-sm mb-1.5 transition-colors
+                                           text-[#0058bc] hover:text-[#004493]
+                                           dark:text-[#adc6ff] dark:hover:text-white">
+                            <svg class="w-4 h-4 opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            Facebook Group
+                        </a>
+                        <a href="#" class="flex items-center gap-2 text-sm transition-colors
+                                           text-[#0058bc] hover:text-[#004493]
+                                           dark:text-[#adc6ff] dark:hover:text-white">
+                            <svg class="w-4 h-4 opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.101 18.079.11 18.1.128 18.113a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+                            </svg>
+                            Discord Server
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div
-                class="text-center text-gray-400 dark:text-gray-600 text-xs border-t border-gray-200 dark:border-white/5 pt-6">
-                <p>© 2026 ECO FOR LOVE</p>
+
+            <!-- Bottom Bar -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3
+                        border-t border-gray-200 dark:border-white/8 pt-6">
+                <p class="text-xs text-gray-500 dark:text-white/45">© 2026 ECO FOR LOVE. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-xs transition-colors
+                                       text-gray-400 hover:text-gray-700
+                                       dark:text-white/40 dark:hover:text-white/70">
+                        นโยบายความเป็นส่วนตัว
+                    </a>
+                    <span class="text-gray-300 dark:text-white/15 text-xs">·</span>
+                    <a href="#" class="text-xs transition-colors
+                                       text-gray-400 hover:text-gray-700
+                                       dark:text-white/40 dark:hover:text-white/70">
+                        เงื่อนไขการใช้งาน
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- Toast -->
     <div id="customToast"
-        class="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-xl shadow-2xl text-sm font-medium z-50 hidden">
+        class="fixed bottom-6 right-6 text-white px-6 py-3 rounded-2xl shadow-2xl
+               text-sm font-medium z-50 hidden backdrop-blur-xl
+               bg-green-600 border border-green-500/30">
     </div>
 
     <script>
-        // === Theme Toggle ===
-        function updateThemeIcons() {
-            const isDark = document.documentElement.classList.contains('dark');
-            // Desktop icons
-            document.getElementById('sunIcon').classList.toggle('hidden', isDark);
-            document.getElementById('moonIcon').classList.toggle('hidden', !isDark);
-            // Mobile icons
-            document.querySelectorAll('.sun-icon').forEach(el => el.classList.toggle('hidden', isDark));
-            document.querySelectorAll('.moon-icon').forEach(el => el.classList.toggle('hidden', !isDark));
-        }
-
+        /* ── Theme Toggle ── */
         function toggleTheme() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
             localStorage.setItem('eco-theme', isDark ? 'dark' : 'light');
             updateThemeIcons();
         }
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.querySelectorAll('.theme-sun').forEach(el => el.classList.toggle('hidden', !isDark));
+            document.querySelectorAll('.theme-moon').forEach(el => el.classList.toggle('hidden', isDark));
+        }
+        updateThemeIcons(); // run on load
 
-        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        document.getElementById('themeToggleMobileBtn').addEventListener('click', toggleTheme);
-        updateThemeIcons();
-
-        // === Mobile Menu Toggle ===
+        /* ── Mobile Menu ── */
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuIcon = document.getElementById('menuIcon');
+        const mobileMenu    = document.getElementById('mobileMenu');
+        const menuIcon      = document.getElementById('menuIcon');
         let menuOpen = false;
-
         mobileMenuBtn.addEventListener('click', () => {
             menuOpen = !menuOpen;
-            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('hidden', !menuOpen);
             menuIcon.setAttribute('d', menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
         });
 
-        // === Image Slider ===
+        /* ── Hero Slider ── */
         let currentSlide = 0;
         const track = document.getElementById('sliderTrack');
-        const dots = document.querySelectorAll('.slider-dot');
+        const dots  = document.querySelectorAll('.hero-dot');
         const totalSlides = dots.length;
         let autoSlideTimer;
 
@@ -399,62 +778,82 @@
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
             dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
         }
-        function slideCarousel(dir) { currentSlide = (currentSlide + dir + totalSlides) % totalSlides; updateSlider(); resetAutoSlide(); }
-        function goToSlide(idx) { currentSlide = idx; updateSlider(); resetAutoSlide(); }
-        function resetAutoSlide() { clearInterval(autoSlideTimer); autoSlideTimer = setInterval(() => slideCarousel(1), 5000); }
+        function slideCarousel(dir) {
+            currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+            updateSlider(); resetAutoSlide();
+        }
+        function goToSlide(idx) {
+            currentSlide = idx; updateSlider(); resetAutoSlide();
+        }
+        function resetAutoSlide() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => slideCarousel(1), 5000);
+        }
         resetAutoSlide();
 
-        // === Toast ===
-        function showToast(message) {
-            const toast = document.getElementById('customToast');
-            toast.innerText = message;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
+        /* ── Toast ── */
+        function showToast(msg) {
+            const t = document.getElementById('customToast');
+            t.innerText = msg;
+            t.classList.remove('hidden');
+            setTimeout(() => t.classList.add('hidden'), 3000);
         }
 
-        // === Auth Check ===
+        /* ── Auth Check ── */
         async function checkAuth() {
-            const guestLinks = document.getElementById('guestLinks');
-            const userLinks = document.getElementById('userLinks');
+            const guestLinks     = document.getElementById('guestLinks');
+            const userLinks      = document.getElementById('userLinks');
             const displayUsername = document.getElementById('displayUsername');
+            const mobileAuthLinks = document.getElementById('mobileAuthLinks');
+            const mobileUserInfo  = document.getElementById('mobileUserInfo');
+            const mobileUsername  = document.getElementById('mobileUsername');
+            const mobileCoin      = document.getElementById('mobileCoin');
             try {
                 const res = await fetch('/auth/me', { credentials: 'include' });
                 if (res.ok) {
                     const data = await res.json();
+                    const username = data.user.username;
                     guestLinks.classList.add('hidden');
                     userLinks.classList.remove('hidden');
-                    displayUsername.innerText = data.user.username;
-                    const mobileAuth = document.getElementById('mobileAuthLinks');
-                    if (mobileAuth) mobileAuth.classList.add('hidden');
+                    displayUsername.innerText = username;
+                    if (mobileAuthLinks) mobileAuthLinks.classList.add('hidden');
+                    if (mobileUserInfo)  mobileUserInfo.classList.remove('hidden');
+                    if (mobileUsername)  mobileUsername.innerText = username;
+                    try {
+                        const cr = await fetch(`/api/get-coin/${encodeURIComponent(username)}`, { credentials: 'include' });
+                        const cd = await cr.json();
+                        if (cd.success && typeof cd.coin === 'number') {
+                            document.getElementById('displayCoin').innerText = cd.coin;
+                            if (mobileCoin) mobileCoin.innerText = cd.coin;
+                        }
+                    } catch (_) {}
                 } else {
                     guestLinks.classList.remove('hidden');
                     userLinks.classList.add('hidden');
+                    if (mobileAuthLinks) mobileAuthLinks.classList.remove('hidden');
+                    if (mobileUserInfo)  mobileUserInfo.classList.add('hidden');
                 }
             } catch (e) {
-                console.error("Error checking auth", e);
+                console.error('Auth check error', e);
                 guestLinks.classList.remove('hidden');
                 userLinks.classList.add('hidden');
             }
         }
 
         async function logoutProcess() {
-            try { await fetch('/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) { }
+            try { await fetch('/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) {}
             checkAuth();
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             checkAuth();
-            const btnLogout = document.getElementById('btnLogout');
-            if (btnLogout) {
-                btnLogout.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    logoutProcess();
-                    showToast("ออกจากระบบสำเร็จแล้ว");
-                });
-            }
+            document.getElementById('btnLogout')?.addEventListener('click', e => {
+                e.preventDefault(); logoutProcess(); showToast('ออกจากระบบสำเร็จแล้ว');
+            });
+            document.getElementById('mobileLogoutBtn')?.addEventListener('click', e => {
+                e.preventDefault(); logoutProcess(); showToast('ออกจากระบบสำเร็จแล้ว');
+            });
         });
     </script>
-    <script src="/js/coinscript.js"></script>
 </body>
-
 </html>

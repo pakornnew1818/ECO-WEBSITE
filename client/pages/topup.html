@@ -6,16 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เติมเงิน — ECO</title>
     <meta name="description" content="เติมเงินซื้อ Coins สำหรับเกม ECO ผ่าน TrueMoney Wallet">
+    <!-- Anti-Flash: apply saved theme before first paint -->
+    <script>if (localStorage.getItem('eco-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { kanit: ['Kanit', 'sans-serif'] },
                     colors: {
-                        gold: { light: '#fff3b0', DEFAULT: '#ffd700', dark: '#b8860b' },
-                        dark: { DEFAULT: '#0a0c10', card: '#111827', panel: '#1a2029' }
+                        primary: {
+                            DEFAULT: '#0058bc',
+                            container: '#0070eb',
+                            dim: '#adc6ff',
+                            dark: '#004493',
+                        },
+                        tertiary: {
+                            DEFAULT: '#9e3d00',
+                            container: '#c64f00',
+                        },
                     }
                 }
             }
@@ -24,122 +39,283 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-dark text-white font-kanit min-h-screen">
+<body class="font-kanit min-h-screen eco-bg text-gray-900 dark:text-white overflow-x-hidden">
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-xl border-b-2 border-gold/40">
+    <!-- Background Orbs -->
+    <div class="eco-orb eco-orb-1" aria-hidden="true"></div>
+    <div class="eco-orb eco-orb-2" aria-hidden="true"></div>
+
+    <!-- =============================================
+         NAVBAR
+         ============================================= -->
+    <nav class="fixed top-0 w-full z-50 eco-glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="/"
-                    class="text-gold font-black text-2xl tracking-widest uppercase hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.6)] transition-all duration-300">ECO</a>
 
+                <!-- Brand -->
+                <a href="/"
+                    class="font-black text-2xl tracking-widest uppercase
+                           text-[#0058bc] dark:text-white
+                           hover:text-[#0070eb] dark:hover:text-[#adc6ff]
+                           transition-all duration-300"
+                    style="text-shadow: 0 0 24px rgba(0,112,235,0.3);">
+                    ECO
+                </a>
+
+                <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-1">
-                    <a href="/"
-                        class="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">HOME</a>
-                    <a href="/pages/topup.html"
-                        class="relative px-4 py-2 text-sm font-medium text-gold tracking-wide transition-all duration-300 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-3/4 after:bg-gold after:rounded">เติมเงิน</a>
-                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
-                        class="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">DOWNLOAD</a>
-                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
-                        class="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-gold tracking-wide transition-all duration-300 hover:-translate-y-0.5 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-0 hover:after:w-3/4 after:bg-gold after:rounded after:transition-all after:duration-300">PATCH</a>
+                    <a href="/" class="nav-link">HOME</a>
+                    <a href="/pages/topup.html" class="nav-link active">เติมเงิน</a>
+                    <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm"
+                        target="_blank" class="nav-link">DOWNLOAD</a>
+                    <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view"
+                        target="_blank" class="nav-link">PATCH</a>
                 </div>
 
-                <!-- Auth Section (Desktop) -->
-                <div id="authSection" class="hidden md:flex items-center gap-3">
-                    <div id="guestLinks" class="flex items-center gap-2">
-                        <a href="/pages/login.html"
-                            class="px-5 py-1.5 text-sm font-semibold border border-gold/60 text-gold rounded-full hover:bg-gold hover:text-black transition-all duration-300">LOGIN</a>
-                        <a href="/pages/register.html"
-                            class="px-5 py-1.5 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all duration-300">REGISTER</a>
-                    </div>
-                    <div id="userLinks" class="hidden">
-                        <div class="flex items-center gap-3 px-4 py-1.5 bg-gold/10 border border-gold/30 rounded-full">
-                            <span class="text-white/90 text-sm">ยินดีต้อนรับ, <strong id="displayUsername"
-                                    class="text-gold">User</strong></span>
-                            <span class="px-3 py-0.5 bg-gold/20 text-gold text-xs font-bold rounded-full">🪙 <span
-                                    id="displayCoin">0</span> Coins</span>
-                            <a id="btnLogout"
-                                class="text-red-400 text-xs font-medium cursor-pointer border-l border-white/20 pl-3 hover:text-white transition-colors">LOGOUT</a>
+                <!-- Desktop Auth + Theme Toggle -->
+                <div class="hidden md:flex items-center gap-3">
+                    <div id="authSection" class="flex items-center gap-3">
+                        <!-- Guest links -->
+                        <div id="guestLinks" class="flex items-center gap-2">
+                            <a href="/pages/login.html"
+                                class="px-5 py-1.5 text-sm font-semibold rounded-full transition-all duration-300
+                                       border border-gray-300 text-gray-600
+                                       hover:bg-gray-100 hover:text-gray-900 hover:border-gray-400
+                                       dark:border-white/25 dark:text-white/80
+                                       dark:hover:bg-white/10 dark:hover:text-white dark:hover:border-white/50">
+                                LOGIN
+                            </a>
+                            <a href="/pages/register.html"
+                                class="px-5 py-1.5 text-sm font-bold text-white rounded-full
+                                       bg-[#c64f00] hover:bg-[#9e3d00]
+                                       shadow-[0_0_18px_rgba(198,79,0,0.4)]
+                                       hover:shadow-[0_0_28px_rgba(198,79,0,0.6)]
+                                       transition-all duration-300">
+                                REGISTER
+                            </a>
+                        </div>
+                        <!-- User links -->
+                        <div id="userLinks" class="hidden">
+                            <div class="flex items-center gap-3 px-4 py-1.5 rounded-full
+                                        bg-gray-100 border border-gray-200
+                                        dark:bg-white/8 dark:border-white/15">
+                                <span class="text-gray-700 dark:text-white/85 text-sm">
+                                    ยินดีต้อนรับ,
+                                    <strong id="displayUsername" class="text-[#0058bc] dark:text-[#adc6ff]">User</strong>
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold
+                                             bg-[#0058bc]/10 text-[#0058bc]
+                                             dark:bg-white/10 dark:text-[#adc6ff]">
+                                    🪙 <span id="displayCoin">0</span> Coins
+                                </span>
+                                <a id="btnLogout"
+                                    class="text-red-500 dark:text-red-400 text-xs font-medium cursor-pointer
+                                           border-l border-gray-200 dark:border-white/15 pl-3
+                                           hover:text-red-600 dark:hover:text-red-300 transition-colors">
+                                    LOGOUT
+                                </a>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" id="themeToggleBtn"
+                        class="theme-toggle" aria-label="Toggle theme">
+                        <svg id="iconSun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                        </svg>
+                        <svg id="iconMoon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                        </svg>
+                    </button>
                 </div>
 
-                <!-- Mobile Hamburger -->
-                <button id="mobileMenuBtn"
-                    class="md:hidden text-gold p-2 hover:bg-gold/10 rounded-lg transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+                <!-- Mobile: Theme + Hamburger -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button onclick="toggleTheme()"
+                        class="theme-toggle w-9 h-9" aria-label="Toggle theme">
+                        <svg id="iconSunMobile" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                        </svg>
+                        <svg id="iconMoonMobile" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                        </svg>
+                    </button>
+                    <button id="mobileMenuBtn"
+                        class="text-gray-600 dark:text-white/80 p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden md:hidden pb-4 anim-slide-down">
-                <div class="flex flex-col gap-2 pt-2 border-t border-gold/20">
+                <div class="flex flex-col gap-1 pt-3 border-t border-gray-200 dark:border-white/10">
                     <a href="/"
-                        class="px-4 py-2 text-white/80 hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">HOME</a>
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 dark:text-white/70
+                               hover:text-gray-900 dark:hover:text-white
+                               hover:bg-gray-100 dark:hover:bg-white/8">
+                        HOME
+                    </a>
                     <a href="/pages/topup.html"
-                        class="px-4 py-2 text-gold font-medium rounded-lg bg-gold/10">เติมเงิน</a>
+                        class="px-4 py-2.5 rounded-xl font-medium
+                               text-[#0058bc] dark:text-white
+                               bg-[#0058bc]/10 dark:bg-white/10">
+                        เติมเงิน
+                    </a>
                     <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank"
-                        class="px-4 py-2 text-white/80 hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">DOWNLOAD</a>
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 dark:text-white/70
+                               hover:text-gray-900 dark:hover:text-white
+                               hover:bg-gray-100 dark:hover:bg-white/8">
+                        DOWNLOAD
+                    </a>
                     <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank"
-                        class="px-4 py-2 text-white/80 hover:text-gold hover:bg-gold/5 rounded-lg transition-colors">PATCH</a>
-                    <div class="flex gap-2 pt-2 border-t border-gold/20 mt-2" id="mobileAuthLinks">
+                        class="px-4 py-2.5 rounded-xl transition-colors
+                               text-gray-600 dark:text-white/70
+                               hover:text-gray-900 dark:hover:text-white
+                               hover:bg-gray-100 dark:hover:bg-white/8">
+                        PATCH
+                    </a>
+
+                    <!-- Mobile Guest Links -->
+                    <div class="flex gap-2 pt-3 mt-1 border-t border-gray-200 dark:border-white/10" id="mobileAuthLinks">
                         <a href="/pages/login.html"
-                            class="flex-1 text-center px-4 py-2 text-sm font-semibold border border-gold/60 text-gold rounded-full hover:bg-gold hover:text-black transition-all">LOGIN</a>
+                            class="flex-1 text-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all
+                                   border border-gray-300 text-gray-700
+                                   hover:bg-gray-100
+                                   dark:border-white/25 dark:text-white
+                                   dark:hover:bg-white/10">
+                            LOGIN
+                        </a>
                         <a href="/pages/register.html"
-                            class="flex-1 text-center px-4 py-2 text-sm font-bold bg-gradient-to-r from-gold-dark to-gold text-black rounded-full">REGISTER</a>
+                            class="flex-1 text-center px-4 py-2.5 text-sm font-bold
+                                   bg-[#c64f00] text-white rounded-xl
+                                   hover:bg-[#9e3d00] transition-colors">
+                            REGISTER
+                        </a>
+                    </div>
+
+                    <!-- Mobile User Info (shown when logged in) -->
+                    <div id="mobileUserInfo" class="hidden mt-2 pt-3 border-t border-gray-200 dark:border-white/10">
+                        <div class="px-4 py-3 rounded-xl bg-gray-100 dark:bg-white/8 border border-gray-200 dark:border-white/15">
+                            <p class="text-gray-500 dark:text-white/50 text-xs mb-1">เข้าสู่ระบบแล้ว</p>
+                            <p class="text-gray-900 dark:text-white font-semibold text-sm">
+                                <span id="mobileDisplayUsername" class="text-[#0058bc] dark:text-[#adc6ff]">User</span>
+                            </p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-gray-500 dark:text-white/50">
+                                    🪙 <span id="mobileDisplayCoin" class="font-bold text-[#0058bc] dark:text-[#adc6ff]">0</span> Coins
+                                </span>
+                                <a id="mobileBtnLogout"
+                                    class="text-red-500 dark:text-red-400 text-xs font-medium cursor-pointer
+                                           hover:text-red-600 dark:hover:text-red-300 transition-colors">
+                                    LOGOUT
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ===== TOP-UP SECTION ===== -->
-    <div class="pt-24 pb-12 px-4">
+    <!-- =============================================
+         TOP-UP SECTION
+         ============================================= -->
+    <div class="relative z-10 pt-24 pb-16 px-4">
         <div class="max-w-6xl mx-auto">
+
+            <!-- Page Title -->
+            <div class="text-center mb-10 anim-fade-in-up">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">เติมเงิน</h1>
+                <p class="text-gray-500 dark:text-white/50 text-sm">กรอกรหัส TrueMoney Voucher เพื่อรับ Coins</p>
+                <div class="w-20 h-px bg-gradient-to-r from-transparent via-[#0070eb]/50 to-transparent mx-auto mt-4"></div>
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-                <!-- Top-Up Card -->
+                <!-- ═══ Top-Up Form Card (2 columns) ═══ -->
                 <div class="lg:col-span-2 anim-fade-in-up">
-                    <div class="rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/20">
-                        <!-- Gradient Header -->
-                        <div class="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 sm:p-8">
-                            <div class="text-center mb-5">
-                                <div class="text-4xl mb-2">💳</div>
-                                <h2 class="text-xl font-bold text-white tracking-wide">เติมเงิน TrueMoney Wallet</h2>
-                                <p class="text-white/60 text-sm mt-1">กรอกรหัส Voucher เพื่อรับ Coins</p>
-                            </div>
+                    <div class="eco-glass rounded-3xl overflow-hidden">
 
-                            <!-- Coin Display -->
-                            <div class="flex justify-center mb-6">
-                                <div
-                                    class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-xl text-lg font-bold">
-                                    <span class="text-yellow-300">🪙</span>
-                                    <span id="currentCoins">0</span>
-                                    <span class="text-white/60 text-sm font-medium">Coins</span>
+                        <!-- Card Header -->
+                        <div class="px-6 pt-6 pb-5 border-b border-gray-100 dark:border-white/8">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-10 h-10 rounded-2xl bg-[#0070eb]/15 dark:bg-[#0070eb]/25
+                                            border border-[#0070eb]/20 dark:border-[#0070eb]/30
+                                            flex items-center justify-center text-xl">
+                                    💳
+                                </div>
+                                <div>
+                                    <h2 class="text-gray-900 dark:text-white font-bold text-base">TrueMoney Wallet</h2>
+                                    <p class="text-gray-500 dark:text-white/45 text-xs">เติมเงินผ่าน Voucher</p>
                                 </div>
                             </div>
 
-                            <!-- Form -->
-                            <form id="topupForm" class="space-y-4">
+                            <!-- Coin Balance Display -->
+                            <div class="flex items-center justify-between p-4 rounded-2xl
+                                        bg-gray-50 border border-gray-100
+                                        dark:bg-white/5 dark:border-white/8">
                                 <div>
-                                    <label for="voucherCode" class="block text-sm font-semibold text-white/80 mb-2">รหัส
-                                        TrueMoney Voucher</label>
+                                    <p class="text-gray-500 dark:text-white/50 text-xs mb-0.5">ยอดเหรียญปัจจุบัน</p>
+                                    <p class="text-[#0058bc] dark:text-[#adc6ff] font-bold text-xl">
+                                        🪙 <span id="currentCoins">0</span>
+                                        <span class="text-gray-400 dark:text-white/50 text-sm font-normal">Coins</span>
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-400 dark:text-white/40 text-xs">อัตราแลกเปลี่ยน</p>
+                                    <p class="text-gray-600 dark:text-white/70 text-sm font-semibold">1 บาท = 1 Coin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Body -->
+                        <div class="p-6">
+                            <form id="topupForm" class="space-y-5">
+                                <div>
+                                    <label for="voucherCode"
+                                        class="block text-sm font-semibold text-gray-700 dark:text-white/80 mb-2">
+                                        รหัส Voucher (16 หลัก)
+                                    </label>
                                     <input type="text" id="voucherCode"
-                                        class="voucher-input w-full px-4 py-3.5 bg-white/10 backdrop-blur border border-white/20 rounded-xl text-white placeholder-white/30 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 outline-none transition-all duration-300 text-lg"
-                                        placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" autocomplete="off" required>
-                                    <p class="text-white/40 text-xs mt-2 flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        class="voucher-input w-full px-4 py-3.5 rounded-xl outline-none transition-all duration-300 text-lg
+                                               text-gray-900 placeholder-gray-400
+                                               bg-gray-50 border border-gray-200
+                                               focus:border-[#0058bc] focus:ring-2 focus:ring-[#0058bc]/20
+                                               dark:text-white dark:placeholder-white/30
+                                               dark:bg-white/8 dark:border-white/15
+                                               dark:focus:border-[#0070eb] dark:focus:ring-[#0070eb]/25"
+                                        placeholder="XXXX-XXXX-XXXX-XXXX"
+                                        maxlength="19" autocomplete="off" required>
+                                    <p class="text-gray-400 dark:text-white/40 text-xs mt-2 flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                                         </svg>
                                         รหัส 16 หลัก (ตัวอักษรและตัวเลข)
                                     </p>
                                 </div>
+
                                 <button type="submit" id="btnSubmit"
-                                    class="w-full py-3.5 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-400 hover:to-blue-400 text-white font-bold text-base rounded-xl shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none transition-all duration-300 flex items-center justify-center gap-2">
+                                    class="w-full py-3.5 rounded-xl
+                                           bg-[#c64f00] hover:bg-[#9e3d00] text-white font-bold text-base
+                                           shadow-[0_0_24px_rgba(198,79,0,0.4)]
+                                           hover:shadow-[0_0_36px_rgba(198,79,0,0.6)]
+                                           hover:-translate-y-0.5 active:translate-y-0
+                                           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+                                           transition-all duration-300
+                                           flex items-center justify-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -148,68 +324,84 @@
                                 </button>
                             </form>
 
-                            <p class="text-center text-white/40 text-xs mt-4">
-                                💡 อัตราแลกเปลี่ยน: 1 บาท = 1 Coin
-                            </p>
+                            <!-- Test Notice -->
+                            <div class="mt-5 p-3.5 rounded-xl flex items-start gap-2.5
+                                        bg-[#0070eb]/8 border border-[#0070eb]/20
+                                        text-[#0058bc] dark:text-[#adc6ff] text-xs">
+                                <svg class="w-4 h-4 mt-0.5 shrink-0 text-[#0070eb]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>
+                                    <strong>ทดสอบ:</strong> ใช้รหัสที่ขึ้นต้นด้วย
+                                    <code class="bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded
+                                                 text-gray-700 dark:text-white/80">TEST</code>
+                                    เช่น
+                                    <code class="bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded
+                                                 text-gray-700 dark:text-white/80">TEST1234567890AB</code>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Test Notice -->
-                    <div
-                        class="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-300 text-xs flex items-start gap-2">
-                        <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span><strong>ทดสอบ:</strong> ใช้รหัสที่ขึ้นต้นด้วย <code
-                                class="bg-blue-500/20 px-1.5 py-0.5 rounded text-blue-200">TEST</code> เช่น <code
-                                class="bg-blue-500/20 px-1.5 py-0.5 rounded text-blue-200">TEST1234567890AB</code></span>
                     </div>
                 </div>
 
-                <!-- Transaction History -->
-                <div class="lg:col-span-3 anim-fade-in-up anim-delay-2">
-                    <div class="glass-panel rounded-2xl overflow-hidden">
+                <!-- ═══ Transaction History (3 columns) ═══ -->
+                <div class="lg:col-span-3 anim-fade-in-up anim-delay-1">
+                    <div class="eco-glass rounded-3xl overflow-hidden h-full flex flex-col">
+
                         <!-- Header -->
-                        <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <h5 class="font-bold text-sm">ประวัติการเติมเงิน</h5>
+                        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-white/8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl flex items-center justify-center
+                                            bg-gray-100 border border-gray-200
+                                            dark:bg-white/8 dark:border-white/10">
+                                    <svg class="w-4 h-4 text-[#0058bc] dark:text-[#adc6ff]" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h2 class="font-bold text-sm text-gray-900 dark:text-white">ประวัติการเติมเงิน</h2>
                             </div>
                             <span id="historyCount"
-                                class="px-3 py-1 bg-white/10 text-white/60 text-xs font-medium rounded-full">0
-                                รายการ</span>
+                                class="px-3 py-1 rounded-full text-xs font-medium
+                                       bg-gray-100 border border-gray-200 text-gray-500
+                                       dark:bg-white/8 dark:border-white/10 dark:text-white/55">
+                                0 รายการ
+                            </span>
                         </div>
 
                         <!-- Table -->
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto flex-1">
                             <table class="w-full">
                                 <thead>
-                                    <tr class="border-b border-white/5">
-                                        <th
-                                            class="text-left px-5 py-3 text-xs text-white/40 font-semibold uppercase tracking-wider">
-                                            วันที่</th>
-                                        <th
-                                            class="text-left px-5 py-3 text-xs text-white/40 font-semibold uppercase tracking-wider">
-                                            รหัส Voucher</th>
-                                        <th
-                                            class="text-right px-5 py-3 text-xs text-white/40 font-semibold uppercase tracking-wider">
-                                            จำนวน</th>
-                                        <th
-                                            class="text-center px-5 py-3 text-xs text-white/40 font-semibold uppercase tracking-wider">
-                                            สถานะ</th>
+                                    <tr class="border-b border-gray-100 dark:border-white/8">
+                                        <th class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider
+                                                   text-gray-500 dark:text-white/45">
+                                            วันที่
+                                        </th>
+                                        <th class="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider
+                                                   text-gray-500 dark:text-white/45">
+                                            Voucher
+                                        </th>
+                                        <th class="text-right px-6 py-3 text-xs font-semibold uppercase tracking-wider
+                                                   text-gray-500 dark:text-white/45">
+                                            จำนวน
+                                        </th>
+                                        <th class="text-center px-6 py-3 text-xs font-semibold uppercase tracking-wider
+                                                   text-gray-500 dark:text-white/45">
+                                            สถานะ
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="historyTableBody">
                                     <tr id="historyLoading">
-                                        <td colspan="4" class="text-center py-10 text-white/40">
-                                            <svg class="animate-spin h-5 w-5 mx-auto mb-2 text-gold"
+                                        <td colspan="4" class="text-center py-12 text-gray-400 dark:text-white/40">
+                                            <svg class="animate-spin h-5 w-5 mx-auto mb-3 text-[#0070eb]"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                    stroke-width="4"></circle>
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
                                                 <path class="opacity-75" fill="currentColor"
                                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                                 </path>
@@ -226,17 +418,48 @@
         </div>
     </div>
 
-    <!-- Mobile Menu Script -->
+    <!-- Scripts -->
     <script>
+        // ── Theme ─────────────────────────────────────────────────
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('eco-theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            // Desktop icons
+            const sun = document.getElementById('iconSun');
+            const moon = document.getElementById('iconMoon');
+            if (sun) sun.classList.toggle('hidden', !isDark);
+            if (moon) moon.classList.toggle('hidden', isDark);
+            // Mobile icons
+            const sunM = document.getElementById('iconSunMobile');
+            const moonM = document.getElementById('iconMoonMobile');
+            if (sunM) sunM.classList.toggle('hidden', !isDark);
+            if (moonM) moonM.classList.toggle('hidden', isDark);
+        }
+        updateThemeIcons();
+
+        // ── Mobile Menu ────────────────────────────────────────────
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuIcon = document.getElementById('menuIcon');
+        const mobileMenu    = document.getElementById('mobileMenu');
+        const menuIcon      = document.getElementById('menuIcon');
         let menuOpen = false;
         mobileMenuBtn.addEventListener('click', () => {
             menuOpen = !menuOpen;
-            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('hidden', !menuOpen);
             menuIcon.setAttribute('d', menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
         });
+
+        // ── Mobile logout ──────────────────────────────────────────
+        const mobileBtnLogout = document.getElementById('mobileBtnLogout');
+        if (mobileBtnLogout) {
+            mobileBtnLogout.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (typeof logoutProcess === 'function') logoutProcess();
+            });
+        }
     </script>
     <script src="/js/topup.js"></script>
 </body>

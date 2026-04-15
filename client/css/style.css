@@ -1,299 +1,329 @@
 /* =============================================
-   ECO WEBSITE — Global Custom Styles (Tailwind)
+   ECO WEBSITE — Global Custom Styles
+   Light Mode (default) + Dark Mode (.dark class)
    ============================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap');
 
-/* --- Custom Animations --- */
+/* =============================================
+   ANIMATIONS
+   ============================================= */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-
-@keyframes glowPulse {
-
-    0%,
-    100% {
-        box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-    }
-
-    50% {
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% center;
-    }
-
-    100% {
-        background-position: 200% center;
-    }
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes statusPulse {
-
-    0%,
-    100% {
-        opacity: 1;
-        box-shadow: 0 0 6px #22c55e;
-    }
-
-    50% {
-        opacity: 0.6;
-        box-shadow: 0 0 14px #22c55e;
-    }
-}
-
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes spinSlow {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px #22c55e; }
+    50%       { opacity: 0.6; box-shadow: 0 0 14px #22c55e; }
+}
+@keyframes orbFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50%       { transform: translateY(-20px) scale(1.05); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
 }
 
 /* --- Utility Animation Classes --- */
-.anim-fade-in-up {
-    animation: fadeInUp 0.6s ease-out both;
+.anim-fade-in-up  { animation: fadeInUp 0.6s ease-out both; }
+.anim-fade-in     { animation: fadeIn 0.5s ease-out both; }
+.anim-slide-down  { animation: slideDown 0.3s ease-out both; }
+.anim-float       { animation: float 3s ease-in-out infinite; }
+.anim-delay-1     { animation-delay: 0.1s; }
+.anim-delay-2     { animation-delay: 0.2s; }
+.anim-delay-3     { animation-delay: 0.3s; }
+.anim-delay-4     { animation-delay: 0.4s; }
+.anim-delay-5     { animation-delay: 0.5s; }
+
+/* =============================================
+   BASE
+   ============================================= */
+body { font-family: 'Kanit', sans-serif; }
+
+/* Smooth theme transition (ยกเว้น hero slider ให้ swap ฉับพลัน) */
+*:not(.hero-slider-track):not(.hero-slider-track *) {
+    transition-property: background-color, color, border-color, box-shadow;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
 }
 
-.anim-fade-in {
-    animation: fadeIn 0.5s ease-out both;
-}
-
-.anim-glow {
-    animation: glowPulse 2s ease-in-out infinite;
-}
-
-.anim-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-.anim-slide-down {
-    animation: slideDown 0.3s ease-out both;
-}
-
-.anim-delay-1 {
-    animation-delay: 0.1s;
-}
-
-.anim-delay-2 {
-    animation-delay: 0.2s;
-}
-
-.anim-delay-3 {
-    animation-delay: 0.3s;
-}
-
-.anim-delay-4 {
-    animation-delay: 0.4s;
-}
-
-.anim-delay-5 {
-    animation-delay: 0.5s;
-}
-
-/* --- Base Overrides --- */
-body {
-    font-family: 'Kanit', sans-serif;
-}
-
-/* --- Theme Transition --- */
-*,
-*::before,
-*::after {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
+/* =============================================
+   SCROLLBAR — Light / Dark
+   ============================================= */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #e8eeff; }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #ffd700, #b8860b);
+    background: linear-gradient(180deg, #0070eb, #004493);
     border-radius: 4px;
 }
+::-webkit-scrollbar-thumb:hover { background: #0070eb; }
+.dark ::-webkit-scrollbar-track { background: #001028; }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #ffd700;
+/* =============================================
+   PAGE BACKGROUND — Light Mode (default)
+   ============================================= */
+.eco-bg {
+    background:
+        radial-gradient(ellipse at 75% 5%,  rgba(0,88,188,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 85%, rgba(0,68,147,0.08) 0%, transparent 55%),
+        linear-gradient(160deg, #dce8ff 0%, #eef3ff 45%, #e4edff 75%, #f5f8ff 100%);
+    min-height: 100vh;
 }
 
-.dark ::-webkit-scrollbar-track {
-    background: #0a0c10;
+/* Dark Mode Background */
+.dark .eco-bg {
+    background:
+        radial-gradient(ellipse at 80% 10%, rgba(0,112,235,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 80%, rgba(0,68,147,0.2)  0%, transparent 50%),
+        linear-gradient(160deg, #000d22 0%, #001a41 40%, #002b6b 70%, #001028 100%);
 }
 
-/* --- Gold Gradient Text --- */
-.text-gold-gradient {
-    background: linear-gradient(135deg, #ffd700, #f59e0b, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* =============================================
+   BACKGROUND ORBS — Light / Dark
+   ============================================= */
+.eco-orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(70px);
+    animation: orbFloat 8s ease-in-out infinite;
+}
+/* Light orbs */
+.eco-orb-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,88,188,0.13) 0%, transparent 70%);
+    top: -200px; right: -150px; animation-delay: 0s;
+}
+.eco-orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,68,147,0.09) 0%, transparent 70%);
+    bottom: 10%; left: -150px; animation-delay: -3s;
+}
+.eco-orb-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(198,79,0,0.05) 0%, transparent 70%);
+    top: 50%; left: 40%; animation-delay: -5s;
+}
+/* Dark orbs */
+.dark .eco-orb-1 {
+    background: radial-gradient(circle, rgba(0,112,235,0.22) 0%, transparent 70%);
+}
+.dark .eco-orb-2 {
+    background: radial-gradient(circle, rgba(0,68,147,0.18)  0%, transparent 70%);
+}
+.dark .eco-orb-3 {
+    background: radial-gradient(circle, rgba(198,79,0,0.08)  0%, transparent 70%);
 }
 
-/* --- Shimmer Button --- */
-.btn-gold-shimmer {
-    background: linear-gradient(90deg, #b8860b, #ffd700, #f59e0b, #ffd700, #b8860b);
-    background-size: 200% auto;
+/* =============================================
+   NAVBAR — Light / Dark
+   ============================================= */
+/* Light */
+.eco-glass-nav {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(0, 88, 188, 0.1);
+    box-shadow: 0 2px 16px rgba(0, 88, 188, 0.07);
+}
+/* Dark */
+.dark .eco-glass-nav {
+    background: rgba(0, 16, 40, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =============================================
+   NAV LINKS — Light / Dark
+   ============================================= */
+.nav-link {
+    position: relative;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(0, 60, 140, 0.65);
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    height: 2px; width: 0;
+    background: #0058bc;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px rgba(0,88,188,0.4);
+}
+.nav-link:hover        { color: #0058bc; }
+.nav-link:hover::after { width: 75%; }
+.nav-link.active       { color: #0058bc; }
+.nav-link.active::after { width: 75%; }
+
+/* Dark nav links */
+.dark .nav-link        { color: rgba(255, 255, 255, 0.65); }
+.dark .nav-link:hover  { color: #ffffff; }
+.dark .nav-link.active { color: #ffffff; }
+.dark .nav-link::after,
+.dark .nav-link.active::after { background: #0070eb; box-shadow: 0 0 8px rgba(0,112,235,0.6); }
+
+/* =============================================
+   THEME TOGGLE BUTTON — Light / Dark
+   ============================================= */
+.theme-toggle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: 1px solid rgba(0, 88, 188, 0.25);
+    background: rgba(0, 88, 188, 0.08);
+    color: #0058bc;
     transition: all 0.3s ease;
 }
-
-.btn-gold-shimmer:hover {
-    animation: shimmer 2s linear infinite;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(0, 88, 188, 0.15);
+}
+.dark .theme-toggle {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+}
+.dark .theme-toggle:hover {
+    background: rgba(0, 112, 235, 0.25);
+    border-color: rgba(0, 112, 235, 0.5);
 }
 
-/* --- Glass Panel (Light Mode) --- */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+/* =============================================
+   HERO CAROUSEL — ใช้ white text ได้ทั้ง 2 โหมด
+   (dark overlay ทำให้อ่านออกในทุกโหมด)
+   ============================================= */
+.hero-slider-track {
+    display: flex;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-slider-track img {
+    min-width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    flex-shrink: 0;
 }
 
-/* --- Glass Panel (Dark Mode) --- */
-.dark .glass-panel {
-    background: rgba(17, 24, 39, 0.7);
-    border: 1px solid rgba(255, 215, 0, 0.15);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+/* Hero Dots */
+.hero-dot {
+    height: 4px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer; transition: all 0.35s ease;
+    width: 12px; border: none; outline: none;
+}
+.hero-dot.active {
+    background: #ffffff; width: 36px;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+}
+.hero-dot:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.65); width: 20px;
 }
 
-/* --- Status Badge (Online Dot) --- */
+/* Hero Arrows */
+.hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.3s ease;
+}
+.hero-arrow:hover {
+    background: rgba(0, 112, 235, 0.4);
+    border-color: rgba(0, 112, 235, 0.7);
+    box-shadow: 0 0 20px rgba(0, 112, 235, 0.5);
+}
+.hero-arrow.prev { left: 20px; }
+.hero-arrow.next { right: 20px; }
+
+/* =============================================
+   GLASS CARDS — Light / Dark
+   ============================================= */
+/* Light */
+.eco-glass {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 88, 188, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 88, 188, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.eco-glass-strong {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(0, 88, 188, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 88, 188, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+/* Dark */
+.dark .eco-glass {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.dark .eco-glass-strong {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* =============================================
+   STATUS DOT
+   ============================================= */
 .status-dot {
-    width: 10px;
-    height: 10px;
-    background: #22c55e;
-    border-radius: 50%;
-    display: inline-block;
+    width: 10px; height: 10px;
+    background: #22c55e; border-radius: 50%;
+    display: inline-block; flex-shrink: 0;
     animation: statusPulse 2s ease-in-out infinite;
 }
 
-/* --- Custom Slider --- */
-.slider-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
+/* =============================================
+   FOOTER LINKS — Light / Dark
+   ============================================= */
+.footer-link {
+    color: rgba(0, 50, 120, 0.6);
+    font-size: 0.875rem;
+    transition: all 0.25s ease;
+    display: block;
+}
+.footer-link:hover {
+    color: #0058bc;
+    padding-left: 6px;
+}
+.dark .footer-link {
+    color: rgba(255, 255, 255, 0.45);
+}
+.dark .footer-link:hover {
+    color: rgba(173, 198, 255, 1);
 }
 
-.slider-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slider-track img {
-    min-width: 100%;
-    height: 400px;
-    object-fit: cover;
-}
-
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffd700;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    font-size: 18px;
-    z-index: 10;
-}
-
-.slider-btn:hover {
-    background: rgba(255, 215, 0, 0.2);
-    border-color: #ffd700;
-}
-
-.slider-btn.prev {
-    left: 12px;
-}
-
-.slider-btn.next {
-    right: 12px;
-}
-
-.slider-dots {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
-}
-
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.slider-dot.active {
-    background: #ffd700;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-}
-
-/* --- Voucher Input --- */
+/* =============================================
+   VOUCHER INPUT
+   ============================================= */
 .voucher-input {
     font-family: 'Courier New', monospace;
     letter-spacing: 4px;
@@ -301,83 +331,9 @@ body {
     text-align: center;
 }
 
-/* --- Table Styles for Top-up History --- */
-.history-table th {
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* --- Smooth page transitions --- */
-.page-enter {
-    animation: fadeInUp 0.5s ease-out both;
-}
-
-/* --- Dark Mode Toggle Button --- */
-.theme-toggle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(0, 0, 0, 0.05);
-    color: #b8860b;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    background: rgba(255, 215, 0, 0.15);
-}
-
-.dark .theme-toggle {
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    background: rgba(255, 215, 0, 0.1);
-    color: #ffd700;
-}
-
-.dark .theme-toggle:hover {
-    background: rgba(255, 215, 0, 0.25);
-}
-
-/* --- Mobile Theme Toggle --- */
-.theme-toggle-mobile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    color: #555;
-    font-size: 0.875rem;
-}
-
-.theme-toggle-mobile:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.dark .theme-toggle-mobile {
-    color: #ccc;
-}
-
-.dark .theme-toggle-mobile:hover {
-    background: rgba(255, 215, 0, 0.05);
-}
-
-/* responsive slider */
+/* =============================================
+   RESPONSIVE
+   ============================================= */
 @media (max-width: 768px) {
-    .slider-track img {
-        height: 220px;
-    }
-}
-
-@media (max-width: 480px) {
-    .slider-track img {
-        height: 180px;
-    }
+    .hero-arrow { width: 38px; height: 38px; font-size: 14px; }
 }

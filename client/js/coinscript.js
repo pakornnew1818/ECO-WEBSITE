@@ -13,6 +13,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (err) {
         const coinDisplay = document.getElementById('displayCoin');
-        if (coinDisplay) coinDisplay.innerText = "เชื่อมต่อข้อมูลล้มเหลว";
+        if (coinDisplay) coinDisplay.innerText = "0"; // fallback เงียบๆ ไม่ทำ badge แตก
     }
 });

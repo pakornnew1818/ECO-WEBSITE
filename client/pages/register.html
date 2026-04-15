@@ -6,16 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register — ECO</title>
     <meta name="description" content="สมัครสมาชิกเพื่อเริ่มต้นการผจญภัยในโลก ECO">
+    <!-- Anti-Flash: apply saved theme before first paint -->
+    <script>if (localStorage.getItem('eco-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { kanit: ['Kanit', 'sans-serif'] },
                     colors: {
-                        gold: { light: '#fff3b0', DEFAULT: '#ffd700', dark: '#b8860b' },
-                        dark: { DEFAULT: '#0a0c10', card: '#111827', panel: '#1a2029' }
+                        primary: {
+                            DEFAULT: '#0058bc',
+                            container: '#0070eb',
+                            dim: '#adc6ff',
+                            dark: '#004493',
+                        },
+                        tertiary: {
+                            DEFAULT: '#9e3d00',
+                            container: '#c64f00',
+                        },
                     }
                 }
             }
@@ -24,80 +39,149 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-dark font-kanit min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+<body class="font-kanit min-h-screen eco-bg text-gray-900 dark:text-white flex items-center justify-center px-4 py-8 relative overflow-hidden">
 
-    <!-- Ambient Glow Background -->
-    <div
-        class="absolute top-[-15%] left-[-5%] w-[450px] h-[450px] bg-gold/10 rounded-full blur-[140px] pointer-events-none">
-    </div>
-    <div
-        class="absolute bottom-[-15%] right-[-5%] w-[350px] h-[350px] bg-gold-dark/10 rounded-full blur-[110px] pointer-events-none">
-    </div>
+    <!-- Background Orbs -->
+    <div class="eco-orb eco-orb-1" aria-hidden="true"></div>
+    <div class="eco-orb eco-orb-2" aria-hidden="true"></div>
 
     <!-- Floating Particles -->
-    <div class="absolute top-16 right-20 w-2 h-2 bg-gold/30 rounded-full anim-float"></div>
-    <div class="absolute bottom-24 left-16 w-1.5 h-1.5 bg-gold/20 rounded-full anim-float anim-delay-3"></div>
-    <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-gold/40 rounded-full anim-float anim-delay-5"></div>
+    <div class="absolute top-16 right-20 w-2 h-2 bg-[#0058bc]/15 dark:bg-white/15 rounded-full anim-float" aria-hidden="true"></div>
+    <div class="absolute bottom-24 left-16 w-1.5 h-1.5 bg-[#adc6ff]/40 dark:bg-[#adc6ff]/20 rounded-full anim-float anim-delay-3" aria-hidden="true"></div>
+    <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-[#0058bc]/20 dark:bg-white/25 rounded-full anim-float anim-delay-5" aria-hidden="true"></div>
 
-    <div class="w-full max-w-md anim-fade-in-up">
-        <!-- Card -->
-        <div
-            class="glass-panel rounded-3xl p-8 sm:p-10 shadow-2xl shadow-gold/5 hover:-translate-y-1 transition-transform duration-500">
+    <!-- Theme Toggle (fixed top-right) -->
+    <button onclick="toggleTheme()" id="themeToggleBtn"
+        class="fixed top-4 right-4 z-50 theme-toggle" aria-label="Toggle theme">
+        <!-- Sun icon (show in dark mode to switch to light) -->
+        <svg id="iconSun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+        </svg>
+        <!-- Moon icon (show in light mode to switch to dark) -->
+        <svg id="iconMoon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+    </button>
+
+    <!-- Card -->
+    <div class="w-full max-w-md relative z-10 anim-fade-in-up">
+        <div class="eco-glass-strong rounded-3xl p-8 sm:p-10">
 
             <!-- Logo -->
             <div class="text-center mb-8">
                 <a href="/"
-                    class="inline-block text-gold font-black text-3xl tracking-widest mb-1 hover:drop-shadow-[0_0_12px_rgba(255,215,0,0.5)] transition-all">ECO</a>
-                <h1 class="text-2xl font-bold text-gold-gradient mt-2">REGISTER</h1>
-                <p class="text-white/40 text-sm mt-1 uppercase tracking-widest">Create Your Legend</p>
-                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold/40 to-transparent mx-auto mt-4"></div>
+                    class="inline-block font-black text-3xl tracking-widest mb-1
+                           text-[#0058bc] dark:text-white
+                           hover:text-[#0070eb] dark:hover:text-[#adc6ff]
+                           transition-colors duration-300"
+                    style="text-shadow: 0 0 24px rgba(0,112,235,0.25);">
+                    ECO
+                </a>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white mt-2">REGISTER</h1>
+                <p class="text-gray-500 dark:text-white/45 text-sm mt-1 uppercase tracking-widest">Create Your Legend</p>
+                <div class="w-16 h-px bg-gradient-to-r from-transparent via-[#c64f00]/60 to-transparent mx-auto mt-4"></div>
             </div>
 
             <!-- Form -->
             <form id="registerForm" class="space-y-5">
+
                 <div>
-                    <label for="username" class="block text-sm font-semibold text-white/90 mb-2">Username</label>
+                    <label for="username"
+                        class="block text-sm font-semibold text-gray-700 dark:text-white/80 mb-2">
+                        Username
+                    </label>
                     <input type="text" id="username" name="username"
-                        class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition-all duration-300"
-                        placeholder="3-30 ตัวอักษร (a-z, 0-9)" required>
+                        class="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300
+                               text-gray-900 placeholder-gray-400
+                               bg-gray-50 border border-gray-200
+                               focus:border-[#0058bc] focus:ring-2 focus:ring-[#0058bc]/20
+                               dark:text-white dark:placeholder-white/30
+                               dark:bg-white/8 dark:border-white/15
+                               dark:focus:border-[#0070eb] dark:focus:ring-[#0070eb]/25"
+                        placeholder="3-30 ตัวอักษร (a-z, 0-9)" required autocomplete="username">
                 </div>
 
                 <div>
-                    <label for="email" class="block text-sm font-semibold text-white/90 mb-2">Email Address</label>
+                    <label for="email"
+                        class="block text-sm font-semibold text-gray-700 dark:text-white/80 mb-2">
+                        Email Address
+                    </label>
                     <input type="email" id="email" name="email"
-                        class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition-all duration-300"
-                        placeholder="example@mail.com" required>
+                        class="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300
+                               text-gray-900 placeholder-gray-400
+                               bg-gray-50 border border-gray-200
+                               focus:border-[#0058bc] focus:ring-2 focus:ring-[#0058bc]/20
+                               dark:text-white dark:placeholder-white/30
+                               dark:bg-white/8 dark:border-white/15
+                               dark:focus:border-[#0070eb] dark:focus:ring-[#0070eb]/25"
+                        placeholder="example@mail.com" required autocomplete="email">
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-semibold text-white/90 mb-2">Password</label>
+                    <label for="password"
+                        class="block text-sm font-semibold text-gray-700 dark:text-white/80 mb-2">
+                        Password
+                    </label>
                     <input type="password" id="password" name="password"
-                        class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition-all duration-300"
-                        placeholder="รหัสผ่าน 3-32 ตัวอักษร" required>
+                        class="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300
+                               text-gray-900 placeholder-gray-400
+                               bg-gray-50 border border-gray-200
+                               focus:border-[#0058bc] focus:ring-2 focus:ring-[#0058bc]/20
+                               dark:text-white dark:placeholder-white/30
+                               dark:bg-white/8 dark:border-white/15
+                               dark:focus:border-[#0070eb] dark:focus:ring-[#0070eb]/25"
+                        placeholder="รหัสผ่าน 3-32 ตัวอักษร" required autocomplete="new-password">
                 </div>
 
+                <!-- ⚠️ CTA: สีส้ม ตัดกับพื้นน้ำเงิน — contrast สูง -->
                 <button type="submit" id="submitBtn"
-                    class="btn-gold-shimmer w-full py-3.5 rounded-xl text-black font-bold text-base tracking-wide shadow-lg shadow-gold/20 hover:shadow-gold/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mt-2">
+                    class="w-full py-3.5 rounded-xl mt-2
+                           bg-[#c64f00] hover:bg-[#9e3d00] text-white font-bold text-base tracking-wide
+                           shadow-[0_0_28px_rgba(198,79,0,0.45)] hover:shadow-[0_0_40px_rgba(198,79,0,0.65)]
+                           hover:-translate-y-0.5 active:translate-y-0
+                           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+                           transition-all duration-300">
                     สมัครสมาชิกตอนนี้
                 </button>
             </form>
 
-            <!-- Footer Links -->
+            <!-- Footer Link -->
             <div class="text-center mt-7">
-                <p class="text-white/50 text-sm">
+                <p class="text-gray-500 dark:text-white/50 text-sm">
                     มีบัญชีแล้ว?
                     <a href="/pages/login.html"
-                        class="text-gold font-semibold hover:underline hover:text-gold-light transition-colors">เข้าสู่ระบบ</a>
+                        class="text-[#0058bc] dark:text-[#adc6ff] font-semibold
+                               hover:text-[#0070eb] dark:hover:text-white transition-colors">
+                        เข้าสู่ระบบ
+                    </a>
                 </p>
             </div>
         </div>
 
         <!-- Back to Home -->
         <div class="text-center mt-6">
-            <a href="/" class="text-white/30 text-xs hover:text-gold transition-colors">← กลับหน้าหลัก</a>
+            <a href="/" class="text-gray-400 dark:text-white/35 text-xs hover:text-gray-700 dark:hover:text-white/70 transition-colors">
+                ← กลับหน้าหลัก
+            </a>
         </div>
     </div>
 
+    <script>
+        // ── Theme ─────────────────────────────────────────────────
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('eco-theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('iconSun').classList.toggle('hidden', !isDark);
+            document.getElementById('iconMoon').classList.toggle('hidden', isDark);
+        }
+        updateThemeIcons();
+    </script>
     <script src="/js/register.js"></script>
 </body>
 
