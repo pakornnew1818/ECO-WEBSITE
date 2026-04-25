@@ -10,29 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/output.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { kanit: ['Kanit', 'sans-serif'] },
-                    colors: {
-                        primary: {
-                            DEFAULT: '#0058bc',
-                            container: '#0070eb',
-                            fixed: '#d8e2ff',
-                            dim: '#adc6ff',
-                            dark: '#004493',
-                        },
-                        secondary: { DEFAULT: '#405e96', container: '#a1befd' },
-                        tertiary: { DEFAULT: '#9e3d00', container: '#c64f00' },
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="css/output.css">
     <!-- Anti-flash: ใส่ dark class ก่อน render เพื่อป้องกัน flash -->
     <script>
         (function () {
@@ -72,7 +50,7 @@
                 <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-1">
                     <a href="/" class="nav-link active">HOME</a>
-                    <a href="/pages/topup.html" class="nav-link">เติมเงิน</a>
+                    <a href="pages/topup.html" class="nav-link">เติมเงิน</a>
                     <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank" class="nav-link">DOWNLOAD</a>
                     <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank" class="nav-link">PATCH</a>
                 </div>
@@ -98,7 +76,7 @@
                     <div id="authSection" class="flex items-center gap-3">
                         <!-- Guest -->
                         <div id="guestLinks" class="flex items-center gap-2">
-                            <a href="/pages/login.html"
+                            <a href="pages/login.html"
                                 class="px-5 py-1.5 text-sm font-semibold rounded-full transition-all duration-300
                                        text-[#0058bc] border border-[#0058bc]/40
                                        hover:bg-[#0058bc]/10 hover:border-[#0058bc]/70
@@ -106,7 +84,7 @@
                                        dark:hover:bg-white/10 dark:hover:text-white dark:hover:border-white/50">
                                 LOGIN
                             </a>
-                            <a href="/pages/register.html"
+                            <a href="pages/register.html"
                                 class="px-5 py-1.5 text-sm font-bold text-white rounded-full
                                        bg-[#c64f00] hover:bg-[#9e3d00]
                                        shadow-[0_0_18px_rgba(198,79,0,0.4)]
