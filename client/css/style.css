@@ -25,7 +25,7 @@
 }
 @keyframes orbFloat {
     0%, 100% { transform: translateY(0px) scale(1); }
-    50%       { transform: translateY(-20px) scale(1.05); }
+    50%       { transform: translateY(-40px) scale(2.05); }
 }
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -90,27 +90,28 @@ body { font-family: 'Kanit', sans-serif; }
    BACKGROUND ORBS — Light / Dark
    ============================================= */
 .eco-orb {
-    position: fixed;
+    position: absolute;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
     filter: blur(70px);
-    animation: orbFloat 8s ease-in-out infinite;
+    animation: orbFloat 20s ease-in-out infinite;
+    opacity: 1;
 }
 /* Light orbs */
 .eco-orb-1 {
     width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(0,88,188,0.13) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,88,188,1) 0%, transparent 30%);
     top: -200px; right: -150px; animation-delay: 0s;
 }
 .eco-orb-2 {
     width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(0,68,147,0.09) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,68,147,1) 0%, transparent 30%);
     bottom: 10%; left: -150px; animation-delay: -3s;
 }
 .eco-orb-3 {
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(198,79,0,0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(198,79,0,1) 0%, transparent 30%);
     top: 50%; left: 40%; animation-delay: -5s;
 }
 /* Dark orbs */

@@ -2264,17 +2264,18 @@ body {
   background: radial-gradient(ellipse at 80% 10%, rgba(0,112,235,0.25) 0%, transparent 50%), radial-gradient(ellipse at 10% 80%, rgba(0,68,147,0.2) 0%, transparent 50%), linear-gradient(160deg, #000d22 0%, #001a41 40%, #002b6b 70%, #001028 100%);
 }
 .eco-orb {
-  position: fixed;
+  position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 9999 !important;
   filter: blur(70px);
   animation: orbFloat 8s ease-in-out infinite;
+  opacity: 1;
 }
 .eco-orb-1 {
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(0,88,188,0.13) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,88,188,0.4) 0%, transparent 70%);
   top: -200px;
   right: -150px;
   animation-delay: 0s;
@@ -2282,7 +2283,7 @@ body {
 .eco-orb-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(0,68,147,0.09) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,68,147,0.4) 0%, transparent 70%);
   bottom: 10%;
   left: -150px;
   animation-delay: -3s;
@@ -2290,7 +2291,7 @@ body {
 .eco-orb-3 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(198,79,0,0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(198,79,0,0.4) 0%, transparent 70%);
   top: 50%;
   left: 40%;
   animation-delay: -5s;
