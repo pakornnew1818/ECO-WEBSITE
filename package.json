@@ -5,7 +5,9 @@
   "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
-    "dev": "node server/app.js"
+    "dev": "node server/app.js",
+    "build:css": "tailwindcss -i ./client/css/input.css -o ./client/css/output.css",
+    "watch:css": "tailwindcss -i ./client/css/input.css -o ./client/css/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.2.2",
