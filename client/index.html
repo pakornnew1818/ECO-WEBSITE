@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ol<!DOCTYPE html>
 <html lang="th">
 
 <head>
@@ -97,6 +97,7 @@
                     <a href="pages/topup.html" class="nav-link">เติมเงิน</a>
                     <a href="https://drive.google.com/file/d/1eNOySGB3hQX7eYea6ae2tM7rDBlQkNYm" target="_blank" class="nav-link">DOWNLOAD</a>
                     <a href="https://drive.google.com/file/d/1PimbaDAbyCVbeov8PHgq3C3UbX27rmDE/view" target="_blank" class="nav-link">PATCH</a>
+                    <a href="eco_game_admin_control_panel.html" target="_blank" id="adminMenuBtn" class="nav-link hidden">ADMIN CONTROL</a>
                 </div>
 
                 <!-- Right: Theme Toggle + Auth -->
@@ -177,7 +178,7 @@
                     <button id="mobileMenuBtn"
                         class="text-[#0058bc] dark:text-white/80 p-2
                                hover:bg-[#0058bc]/10 dark:hover:bg-white/10
-                               rounded-lg transition-colors">
+                               rounded-lg transition-colors">   
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -358,132 +359,14 @@
                         </div>
 
                         <!-- News Items -->
-                        <div class="divide-y divide-gray-100 dark:divide-white/5 flex-1">
-
-                            <!-- Item 1 -->
-                            <a href="#" class="flex items-center gap-4 px-6 py-4
-                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
-                                               transition-colors group">
-                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
-                                             bg-[#0058bc]/15 text-[#0058bc] border border-[#0058bc]/20
-                                             dark:bg-[#0070eb]/25 dark:text-[#adc6ff] dark:border-[#0070eb]/30">
-                                    Update
-                                </span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm truncate transition-colors
-                                              text-gray-700 group-hover:text-[#0058bc]
-                                              dark:text-white/85 dark:group-hover:text-white">
-                                        [Update] รายละเอียด Patch Note 1.0.8 ฉบับเต็ม
-                                    </p>
-                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">14 เม.ย. 2569</p>
-                                </div>
-                                <svg class="w-4 h-4 shrink-0 transition-all
-                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
-                                            dark:text-white/25 dark:group-hover:text-white/60"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-
-                            <!-- Item 2 -->
-                            <a href="#" class="flex items-center gap-4 px-6 py-4
-                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
-                                               transition-colors group">
-                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
-                                             bg-cyan-100 text-cyan-700 border border-cyan-200
-                                             dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/25">
-                                    Event
-                                </span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm truncate transition-colors
-                                              text-gray-700 group-hover:text-[#0058bc]
-                                              dark:text-white/85 dark:group-hover:text-white">
-                                        [Event] กิจกรรมตะลุยดันเจี้ยนแลกรับเซตแฟชั่นลิมิเต็ด
-                                    </p>
-                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">12 เม.ย. 2569</p>
-                                </div>
-                                <svg class="w-4 h-4 shrink-0 transition-all
-                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
-                                            dark:text-white/25 dark:group-hover:text-white/60"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-
-                            <!-- Item 3 -->
-                            <a href="#" class="flex items-center gap-4 px-6 py-4
-                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
-                                               transition-colors group">
-                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
-                                             bg-gray-100 text-gray-600 border border-gray-200
-                                             dark:bg-white/10 dark:text-white/60 dark:border-white/10">
-                                    Notice
-                                </span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm truncate transition-colors
-                                              text-gray-700 group-hover:text-[#0058bc]
-                                              dark:text-white/85 dark:group-hover:text-white">
-                                        [Notice] ประกาศขยายเวลาคูณ EXP จนถึงสิ้นสัปดาห์นี้!
-                                    </p>
-                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">10 เม.ย. 2569</p>
-                                </div>
-                                <svg class="w-4 h-4 shrink-0 transition-all
-                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
-                                            dark:text-white/25 dark:group-hover:text-white/60"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-
-                            <!-- Item 4 -->
-                            <a href="#" class="flex items-center gap-4 px-6 py-4
-                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
-                                               transition-colors group">
-                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
-                                             bg-purple-100 text-purple-700 border border-purple-200
-                                             dark:bg-purple-500/20 dark:text-purple-400 dark:border-purple-500/25">
-                                    Patch
-                                </span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm truncate transition-colors
-                                              text-gray-700 group-hover:text-[#0058bc]
-                                              dark:text-white/85 dark:group-hover:text-white">
-                                        [Patch] อัปเดต Client Patch 1.0.8 — ดาวน์โหลดก่อนเข้าเกม
-                                    </p>
-                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">8 เม.ย. 2569</p>
-                                </div>
-                                <svg class="w-4 h-4 shrink-0 transition-all
-                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
-                                            dark:text-white/25 dark:group-hover:text-white/60"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-
-                            <!-- Item 5 -->
-                            <a href="#" class="flex items-center gap-4 px-6 py-4
-                                               hover:bg-[#0058bc]/5 dark:hover:bg-white/5
-                                               transition-colors group">
-                                <span class="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg
-                                             bg-cyan-100 text-cyan-700 border border-cyan-200
-                                             dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/25">
-                                    Event
-                                </span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm truncate transition-colors
-                                              text-gray-700 group-hover:text-[#0058bc]
-                                              dark:text-white/85 dark:group-hover:text-white">
-                                        [Event] โบนัสเติมเงิน 50% ฉลองครบรอบปีแรก ECO Classic
-                                    </p>
-                                    <p class="text-xs mt-0.5 text-gray-400 dark:text-white/50">5 เม.ย. 2569</p>
-                                </div>
-                                <svg class="w-4 h-4 shrink-0 transition-all
-                                            text-gray-300 group-hover:text-[#0058bc] group-hover:translate-x-1
-                                            dark:text-white/25 dark:group-hover:text-white/60"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
+                        
+                        <!-- News Items Container (จะใช้ JS ยัดข้อมูลใส่ตรงนี้) -->
+                        <div id="newsListContainer" class="divide-y divide-gray-100 dark:divide-white/5 flex-1">
+                            <!-- ข่าวสารจะถูกโหลดมาแสดงที่นี่โดย JS -->
+                            <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+                                <i data-lucide="loader-2" class="w-8 h-8 mx-auto animate-spin mb-3"></i>
+                                กำลังโหลดข่าวสาร...
+                            </div>
                         </div>
 
                         <!-- Card Footer -->
@@ -555,57 +438,10 @@
                             <h2 class="font-bold text-base text-gray-900 dark:text-white">Top Ranking</h2>
                         </div>
 
-                        <ol class="space-y-2.5">
-                            <!-- Rank 1 -->
-                            <li class="flex items-center gap-3 p-3 rounded-2xl
-                                       bg-yellow-50 border border-yellow-200
-                                       dark:bg-yellow-500/10 dark:border-yellow-500/20
-                                       hover:bg-yellow-100 dark:hover:bg-yellow-500/20 transition-colors">
-                                <div class="w-8 h-8 flex items-center justify-center shrink-0
-                                            bg-yellow-500 text-black text-xs font-black rounded-full">1</div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-gray-900 dark:text-white font-bold text-sm truncate">WarriorX</p>
-                                    <p class="text-gray-500 dark:text-white/45 text-xs">Lv.24</p>
-                                </div>
-                                <span class="text-yellow-500 text-lg leading-none">👑</span>
-                            </li>
-                            <!-- Rank 2 -->
-                            <li class="flex items-center gap-3 p-3 rounded-2xl
-                                       bg-gray-50 border border-gray-200
-                                       dark:bg-white/5 dark:border-white/8
-                                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                                <div class="w-8 h-8 flex items-center justify-center shrink-0
-                                            bg-slate-400 text-white text-xs font-black rounded-full">2</div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-gray-700 dark:text-white/85 font-semibold text-sm truncate">MagePro</p>
-                                    <p class="text-gray-500 dark:text-white/40 text-xs">Lv.21</p>
-                                </div>
-                            </li>
-                            <!-- Rank 3 -->
-                            <li class="flex items-center gap-3 p-3 rounded-2xl
-                                       bg-gray-50 border border-gray-200
-                                       dark:bg-white/5 dark:border-white/8
-                                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                                <div class="w-8 h-8 flex items-center justify-center shrink-0
-                                            bg-amber-700 text-white text-xs font-black rounded-full">3</div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-gray-700 dark:text-white/85 font-semibold text-sm truncate">Thief01</p>
-                                    <p class="text-gray-500 dark:text-white/40 text-xs">Lv.20</p>
-                                </div>
-                            </li>
-                            <!-- Rank 4 -->
-                            <li class="flex items-center gap-3 p-3 rounded-2xl
-                                       bg-gray-50 border border-gray-100
-                                       dark:bg-white/4 dark:border-white/6
-                                       hover:bg-gray-100 dark:hover:bg-white/8 transition-colors">
-                                <div class="w-8 h-8 flex items-center justify-center shrink-0
-                                            bg-gray-200 dark:bg-white/10
-                                            text-gray-500 dark:text-white/60 text-xs font-bold rounded-full">4</div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-gray-600 dark:text-white/70 font-semibold text-sm truncate">Newzapong</p>
-                                    <p class="text-gray-400 dark:text-white/35 text-xs">Lv.16</p>
-                                </div>
-                            </li>
+                        <ol id="topRankingList" class="space-y-2.5">
+                            <div class="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+                                กำลังโหลดข้อมูล Ranking...
+                            </div>
                         </ol>
 
                         <a href="#" class="mt-4 block text-center text-xs transition-colors
@@ -841,6 +677,10 @@
                     if (mobileAuthLinks) mobileAuthLinks.classList.add('hidden');
                     if (mobileUserInfo)  mobileUserInfo.classList.remove('hidden');
                     if (mobileUsername)  mobileUsername.innerText = username;
+                    if (data.user.role === 'admin') {
+                        const adminBtn = document.getElementById('adminMenuBtn');
+                        if (adminBtn) adminBtn.classList.remove('hidden');
+                    }
                     try {
                         const cr = await fetch(`/api/get-coin/${encodeURIComponent(username)}`, { credentials: 'include' });
                         const cd = await cr.json();
@@ -875,6 +715,199 @@
             document.getElementById('mobileLogoutBtn')?.addEventListener('click', e => {
                 e.preventDefault(); logoutProcess(); showToast('ออกจากระบบสำเร็จแล้ว');
             });
+        });
+
+        /* ── News Fetching Logic ── */
+        let globalNewsData = []; // เก็บข่าวทั้งหมดไว้ในตัวแปรนี้ชั่วคราว เพื่อให้ Modal ดึงไปโชว์ได้
+
+        // ฟังก์ชันไปดึงข่าวจาก Backend
+        async function fetchLatestNews() {
+            const container = document.getElementById('newsListContainer');
+            try {
+                // ยิง API ไปหา Backend ที่เราเขียนไว้
+                const response = await fetch('/api/news');
+                const result = await response.json();
+
+                if (result.success && result.data.length > 0) {
+                    globalNewsData = result.data; // เก็บข้อมูลลงตัวแปร
+
+                    // วนลูปสร้าง HTML ของแต่ละข่าว
+                    container.innerHTML = result.data.map(news => {
+                        
+                        // สร้างสีป้าย Tag ตามประเภทข่าว
+                        let typeColorClass = '';
+                        if (news.type === 'Update') typeColorClass = 'text-green-600 bg-green-100 dark:bg-green-500/20 dark:text-green-300';
+                        else if (news.type === 'Event') typeColorClass = 'text-yellow-600 bg-yellow-100 dark:bg-yellow-500/20 dark:text-yellow-300';
+                        else typeColorClass = 'text-[#0058bc] bg-[#0058bc]/12 dark:bg-[#0070eb]/20 dark:text-[#adc6ff]';
+
+                        // แปลงวันที่ให้อ่านง่าย
+                        const formattedDate = new Date(news.created_at).toLocaleDateString('th-TH');
+
+                        // สร้างการ์ดข่าว
+                        return `
+                        <div class="p-6 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer group" onclick="openNewsModal(${news.id})">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md ${typeColorClass}">
+                                            ${news.type}
+                                        </span>
+                                        <span class="text-xs text-gray-400 dark:text-white/35 font-medium">${formattedDate}</span>
+                                    </div>
+                                    <h3 class="font-bold text-base text-gray-900 dark:text-white group-hover:text-[#0058bc] dark:group-hover:text-[#adc6ff] transition-colors truncate">
+                                        ${news.title}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }).join('');
+                } else {
+                    container.innerHTML = '<div class="p-8 text-center text-gray-500 text-sm">ยังไม่มีประกาศข่าวสารในขณะนี้</div>';
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error);
+                container.innerHTML = '<div class="p-8 text-center text-red-500 text-sm">ไม่สามารถโหลดข่าวสารได้ กรุณาลองใหม่ภายหลัง</div>';
+            }
+        }
+
+        /* ── News Modal Logic ── */
+        function openNewsModal(newsId) {
+            // หาข่าวที่ผู้เล่นคลิก จากข้อมูลทั้งหมดที่เราดึงมาเก็บไว้
+            const news = globalNewsData.find(n => n.id === newsId);
+            if (!news) return;
+
+            // เอาข้อมูลยัดใส่กล่องหน้าต่าง
+            document.getElementById('modalNewsTitle').innerText = news.title;
+            document.getElementById('modalNewsType').innerText = news.type;
+            document.getElementById('modalNewsDate').innerText = new Date(news.created_at).toLocaleDateString('th-TH');
+            document.getElementById('modalNewsContent').innerHTML = news.content_html; // ใช้ innerHTML เพื่อให้โค้ดสี/รูปภาพทำงาน
+            
+            // เช็กรูปปก ถ้าแอดมินไม่ได้ใส่ ให้ใช้รูป Default
+            document.getElementById('modalNewsImage').src = news.cover_image || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80";
+
+            // เปิดหน้าต่าง (โชว์ Modal)
+            const modal = document.getElementById('newsDetailModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10); // ให้เวลา CSS ทำ Transition นิดนึง
+        }
+
+        function closeNewsModal() {
+            const modal = document.getElementById('newsDetailModal');
+            modal.classList.add('opacity-0'); // ซ่อนแบบค่อยๆ จาง
+            setTimeout(() => modal.classList.add('hidden'), 300); // ซ่อนสนิทหลัง CSS ทำงานเสร็จ
+        }
+
+        // สั่งให้มันโหลดข่าวทันทีที่เปิดเว็บขึ้นมา
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchLatestNews();
+        });
+
+        /* ── Top Ranking Fetching Logic ── */
+        async function fetchTopRanking() {
+            const container = document.getElementById('topRankingList');
+            
+            try {
+                // ยิง API ไปหา Backend (สมมติว่าสร้าง Route ไว้ที่ /api/status/ranking)
+                const response = await fetch('/api/status/ranking');
+                const result = await response.json();
+
+                if (result.success && result.data.length > 0) {
+                    // วนลูปข้อมูล Ranking ที่ได้มา (ผู้เล่น 4 อันดับแรก)
+                    container.innerHTML = result.data.map((player, index) => {
+                        const rank = index + 1;
+                        
+                        // เตรียมตัวแปรสำหรับกำหนดสีตามอันดับ
+                        let badgeClass = '';
+                        let liClass = '';
+                        let crownIcon = '';
+
+                        // กำหนดสีให้สวยงามตามอันดับที่ 1, 2, 3 และ 4
+                        if (rank === 1) {
+                            badgeClass = 'bg-yellow-500 text-black';
+                            liClass = 'bg-yellow-50 border border-yellow-200 dark:bg-yellow-500/10 dark:border-yellow-500/20 hover:bg-yellow-100 dark:hover:bg-yellow-500/20';
+                            crownIcon = '<span class="text-yellow-500 text-lg leading-none">👑</span>';
+                        } else if (rank === 2) {
+                            badgeClass = 'bg-slate-400 text-white';
+                            liClass = 'bg-gray-50 border border-gray-200 dark:bg-white/5 dark:border-white/8 hover:bg-gray-100 dark:hover:bg-white/10';
+                        } else if (rank === 3) {
+                            badgeClass = 'bg-amber-700 text-white';
+                            liClass = 'bg-gray-50 border border-gray-200 dark:bg-white/5 dark:border-white/8 hover:bg-gray-100 dark:hover:bg-white/10';
+                        } else {
+                            badgeClass = 'bg-gray-200 dark:bg-white/10 text-gray-500 dark:text-white/60';
+                            liClass = 'bg-gray-50 border border-gray-100 dark:bg-white/4 dark:border-white/6 hover:bg-gray-100 dark:hover:bg-white/8';
+                        }
+
+                        // คืนค่าโครงสร้าง HTML สำหรับแต่ละอันดับ
+                        return `
+                        <li class="flex items-center gap-3 p-3 rounded-2xl transition-colors ${liClass}">
+                            <div class="w-8 h-8 flex items-center justify-center shrink-0 text-xs font-black rounded-full ${badgeClass}">
+                                ${rank}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-gray-900 dark:text-white font-bold text-sm truncate">${player.name}</p>
+                                <p class="text-gray-500 dark:text-white/45 text-xs">Lv.${player.lv}</p>
+                            </div>
+                            ${crownIcon}
+                        </li>
+                        `;
+                    }).join('');
+                } else {
+                    container.innerHTML = '<li class="text-center text-sm text-gray-500 py-4">ยังไม่มีข้อมูลผู้เล่น</li>';
+                }
+            } catch (error) {
+                console.error("ไม่สามารถดึงข้อมูล Ranking ได้:", error);
+                container.innerHTML = '<li class="text-center text-sm text-red-500 py-4">ไม่สามารถโหลดข้อมูลได้</li>';
+            }
+        }
+
+        // สั่งให้ดึงข้อมูล Ranking ทันทีที่โหลดหน้าเว็บเสร็จ
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchTopRanking();
+        });
+
+        // ฟังก์ชันเช็กสถานะเซิร์ฟเวอร์
+        async function fetchServerStatus() {
+            try {
+                // ยิงไปถาม Backend
+                const response = await fetch('/api/server-info/status');
+                const data = await response.json();
+
+                if (data.success) {
+                    // หาจุดไฟสถานะ และ ข้อความ Online/Offline
+                    const statusDot = document.querySelector('.status-dot');
+                    const statusText = statusDot.nextElementSibling.querySelector('p:first-child');
+                    
+                    // หากล่องพื้นหลังเพื่อเปลี่ยนสี
+                    const statusBox = statusDot.closest('.flex.items-center');
+
+                    if (data.online) {
+                        // กรณี: เซิร์ฟเวอร์เปิด (Online) -> สีเขียว
+                        statusDot.className = 'status-dot w-3 h-3 rounded-full bg-green-500 animate-pulse';
+                        statusText.innerText = 'Online';
+                        statusText.className = 'text-green-700 dark:text-green-400 font-bold text-sm';
+                        
+                        statusBox.className = 'flex items-center gap-3 p-4 rounded-2xl mb-4 bg-green-50 border border-green-200 dark:bg-green-500/10 dark:border-green-500/20';
+                    } else {
+                        // กรณี: เซิร์ฟเวอร์ปิด (Offline) -> สีแดง
+                        statusDot.className = 'status-dot w-3 h-3 rounded-full bg-red-500'; // เอา animate-pulse (ไฟกระพริบ) ออก
+                        statusText.innerText = 'Offline';
+                        statusText.className = 'text-red-700 dark:text-red-400 font-bold text-sm';
+                        
+                        statusBox.className = 'flex items-center gap-3 p-4 rounded-2xl mb-4 bg-red-50 border border-red-200 dark:bg-red-500/10 dark:border-red-500/20';
+                    }
+                }
+            } catch (error) {
+                console.error("ไม่สามารถดึงข้อมูลสถานะเซิร์ฟเวอร์ได้:", error);
+            }
+        }
+
+        // สั่งให้เช็กทันทีที่เข้าเว็บ 
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchServerStatus();
+            
+            // ตั้งให้มันเช็กซ้ำอัตโนมัติทุกๆ 30 วินาที (อัปเดต Real-time)
+            setInterval(fetchServerStatus, 30000); 
         });
     </script>
 
@@ -1078,6 +1111,43 @@
             </p>
         </div>
     </div>
+
+    <!-- =============================================
+         NEWS MODAL (หน้าต่างเด้งอ่านข่าว)
+         ============================================= -->
+    <div id="newsDetailModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden backdrop-blur-sm transition-opacity opacity-0"
+         style="background:rgba(0,13,34,0.70);">
+        <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] anim-slide-down">
+            
+            <!-- รูปภาพปก -->
+            <div class="relative h-48 sm:h-64 w-full bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+                <img id="modalNewsImage" src="" alt="News Cover" class="w-full h-full object-cover">
+                <button onclick="closeNewsModal()" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full transition-colors backdrop-blur-md">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="absolute bottom-4 left-4">
+                    <span id="modalNewsType" class="px-3 py-1 bg-[#0058bc] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg border border-white/20">
+                        Notice
+                    </span>
+                </div>
+            </div>
+
+            <!-- เนื้อหาข่าว -->
+            <div class="p-6 md:p-8 overflow-y-auto custom-scrollbar flex-1">
+                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span id="modalNewsDate">dd/mm/yyyy</span>
+                </div>
+                <h2 id="modalNewsTitle" class="text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                    ชื่อหัวข้อข่าว
+                </h2>
+                <div id="modalNewsContent" class="text-gray-600 dark:text-gray-300 leading-relaxed space-y-4 whitespace-pre-wrap">
+                    รายละเอียดข่าวสาร...
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="js/login-modal.js"></script>
 </body>

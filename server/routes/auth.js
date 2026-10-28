@@ -107,7 +107,7 @@ router.post('/login', async (req, res) => {
         }
 
         const token = jwt.sign(
-            { userId: rows[0].id, username: rows[0].username },
+            { userId: rows[0].id, username: rows[0].username, role:rows[0].ROLE },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
@@ -117,7 +117,7 @@ router.post('/login', async (req, res) => {
             sameSite: 'strict',
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.json({ success: true, user: { username: rows[0].username } });
+        res.json({ success: true, user: { username: rows[0].username, role: rows[0].ROLE} });
     } catch (error) {
         res.status(500).json({ success: false, message: "DB Error" });
     } finally {
@@ -127,7 +127,7 @@ router.post('/login', async (req, res) => {
 
 // ดึงข้อมูล User ปัจจุบันจาก JWT Token
 router.get('/me', authenticateToken, (req, res) => {
-    res.json({ success: true, user: { username: req.user.username } });
+    res.json({ success: true, user: { username: req.user.username, role: req.user.role } });
 });
 
 // ออกจากระบบ

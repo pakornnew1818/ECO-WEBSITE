@@ -13,4 +13,14 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-module.exports = { authenticateToken };
+function isAdmin(req, res, next) {
+    if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json {
+            sucess: false,
+            message: 'การเข้าถึงถูกปฏิเสธ : คุณต้องเป็นผู้ดูแลระบบเท่านั้น!'
+        }
+    }
+    next();
+}
+
+module.exports = { authenticateToken, isAdmin };

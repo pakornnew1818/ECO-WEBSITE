@@ -19,6 +19,9 @@ const { pool, config } = require('./config/db');
 const coinRoutes = require('./routes/coin');
 const { router: authRoutes } = require('./routes/auth');
 const topupRoutes = require('./routes/topup');
+const newsRoutes = require('./routes/news')
+const statusRoutes = require('./routes/status')
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -51,6 +54,9 @@ const coinLimiter = rateLimit({
 app.use('/api', coinLimiter, coinRoutes);
 app.use('/api/topup', coinLimiter, topupRoutes);
 app.use('/auth', authLimiter, authRoutes);
+app.use('/api/news', newsRoutes);
+app.use('/api/status', statusRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);

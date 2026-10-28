@@ -28,6 +28,14 @@
     </script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Quill Rich Text Editor CDN -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+      <!-- แทรก Plugin ปรับขนาดรูปภาพตรงนี้ครับ -->
+    <script src="https://cdn.jsdelivr.net/npm/quill-image-resize@3.0.9/image-resize.min.js"></script>
+
     <style>
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
@@ -47,6 +55,23 @@
         .dark ::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
+        }
+
+        /* Quill Editor Dark Mode Overrides */
+        .dark .ql-toolbar.ql-snow { border-color: #374151; }
+        .dark .ql-container.ql-snow { border-color: #374151; color: #f3f4f6; font-family: inherit; }
+        .dark .ql-snow .ql-stroke { stroke: #9ca3af; }
+        .dark .ql-snow .ql-fill, .dark .ql-snow .ql-stroke.ql-fill { fill: #9ca3af; }
+        .dark .ql-snow .ql-picker { color: #9ca3af; }
+        .dark .ql-snow .ql-picker-options { background-color: #1f2937; border-color: #374151; }
+
+        .ql-container.ql-snow {
+        height: auto !important;
+        }
+        .ql-editor {
+            min-height: 200px;
+            height: auto !important;
+            overflow-y: hidden; /* ป้องกัน Scrollbar โผล่ซ้อนด้านใน */
         }
     </style>
 </head>
@@ -336,7 +361,9 @@
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">รายละเอียด</label>
-                            <textarea id="newsContentInput" rows="3" placeholder="ระบุรายละเอียดกิจกรรมหรือข่าวสาร..." required class="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+                            <div class="bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+                                <div id="newsContentEditor" class="min-h-[200px] text-sm"></div>
+                            </div>
                         </div>
                         <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors shadow-lg shadow-brand-500/20 text-sm flex items-center gap-2">
                             <i data-lucide="send" class="w-4 h-4"></i>
@@ -416,6 +443,48 @@
         </div>
     </div>
 
+    <!-- MODAL: NEWS DETAIL (หน้าต่างอ่านข่าว) -->
+    <div id="newsDetailModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl flex flex-col max-h-[90vh]">
+            
+            <!-- ส่วนรูปภาพพาดหัว (Hero Image) -->
+            <div class="relative h-48 sm:h-64 w-full bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+                <img id="modalNewsImage" src="" alt="News Image" class="w-full h-full object-cover">
+                <button onclick="closeNewsModal()" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-brand-500 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg border border-white/20">
+                        ประกาศข่าวสาร
+                    </span>
+                </div>
+            </div>
+
+            <!-- ส่วนเนื้อหาข่าว -->
+            <div class="p-6 md:p-8 overflow-y-auto custom-scrollbar flex-1">
+                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    <span id="modalNewsDate">dd/mm/yyyy</span>
+                </div>
+                
+                <h2 id="modalNewsTitle" class="text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                    ชื่อหัวข้อข่าว
+                </h2>
+                
+                <div id="modalNewsContent" class="ql-editor text-gray-600 dark:text-gray-300 leading-relaxed space-y-4 whitespace-pre-wrap ql-editor px-0 pb-0">
+                    รายละเอียดข่าวสาร...
+                </div>
+            </div>
+
+            <!-- ส่วน Footer ล่างสุด -->
+            <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-700/50 flex justify-end bg-gray-50 dark:bg-gray-800/50 flex-shrink-0">
+                <button onclick="closeNewsModal()" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-xl text-sm font-semibold transition-colors">
+                    ปิดหน้าต่าง
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-20 opacity-0 z-50 pointer-events-none">
         <i data-lucide="check-circle" class="w-5 h-5 text-brand-500"></i>
@@ -438,7 +507,14 @@
                 { id: 103, name: "กังหันลมผลิตไฟฟ้าขนาดเล็ก", category: "ตกแต่ง (Decorations)", price: 1200, icon: "wind" }
             ],
             news: [
-                { id: 1, title: "กิจกรรมวันปลูกป่ารับ Eco Coins 2x", content: "สัปดาห์นี้ปลูกต้นไม้ในเกมได้รับเหรียญคูณสองทันที!", date: "2026-02-14" }
+                { 
+                    id: 1, 
+                    title: "กิจกรรมวันปลูกป่ารับ Eco Coins 2x", 
+                    contentHTML: "<p>สัปดาห์นี้ปลูกต้นไม้ในเกมได้รับเหรียญ<strong>คูณสองทันที!</strong></p><p><br></p><p><span style=\"color: rgb(230, 0, 0);\">อย่าลืมชวนเพื่อนมาเล่นกันเยอะๆ นะครับ</span></p><p><br></p><p>สามารถดูรายละเอียดเพิ่มเติมได้ที่ <a href=\"#\" target=\"_blank\">เว็บไซต์ของเรา</a></p>", 
+                    textPreview: "สัปดาห์นี้ปลูกต้นไม้ในเกมได้รับเหรียญคูณสองทันที! อย่าลืมชวนเพื่อนมาเล่นกันเยอะๆ นะครับ...",
+                    date: "2026-02-14",
+                    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80"
+                }
             ],
             coinHistory: [
                 { id: 1, user: "GreenHero99", action: "เพิ่มเหรียญ (+500)", amount: 500, time: "10 นาทีที่แล้ว" },
@@ -451,11 +527,37 @@
         };
 
         /* ── INITIALIZATION ── */
+        let quillEditor;
+
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            initQuillEditor();
             renderAll();
             setupMobileSidebar();
         });
+
+        /* ── RICH TEXT EDITOR INIT ── */
+        function initQuillEditor() {
+            const toolbarOptions = [
+                [{ 'size': ['small', false, 'large', 'huge'] }], // ปรับขนาดตัวอักษร
+                [{ 'color': [] }, { 'background': [] }],         // เปลี่ยนสีตัวอักษรและสีพื้นหลัง
+                ['bold', 'italic', 'underline', 'strike'],       // ตัวหนา เอียง ขีดเส้นใต้
+                ['link', 'image'],                               // แนบลิงก์และอัปโหลดรูป
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],    // ลิสต์รายการ
+                ['clean']                                        // ปุ่มล้างการจัดรูปแบบ
+            ];
+
+            
+            quillEditor = new Quill('#newsContentEditor', {
+                theme: 'snow',
+                modules: { toolbar: toolbarOptions,
+                    imageResize:{
+                        displaySize: true
+                    }
+                 },
+                placeholder: 'ระบุรายละเอียดกิจกรรมหรือข่าวสาร (เพิ่มรูปภาพ หรือ แนบลิงก์ได้ที่นี่)...'
+            });
+        }
 
         /* ── RENDER ENGINE ── */
         function renderAll() {
@@ -687,10 +789,15 @@
             const container = document.getElementById('newsList');
             container.innerHTML = state.news.map(n => `
                 <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50 flex justify-between items-start">
-                    <div class="space-y-1">
+                    <div class="space-y-2 flex-1 mr-4">
                         <h4 class="font-bold text-sm">${n.title}</h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">${n.content}</p>
-                        <span class="inline-block text-[10px] text-gray-400 pt-1">${n.date}</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">${n.textPreview}</p>
+                        <div class="flex items-center justify-between pt-1">
+                            <span class="inline-block text-[10px] text-gray-400">${n.date}</span>
+                            <button onclick="openNewsModal(${n.id})" class="px-3 py-1.5 bg-brand-500/10 text-brand-600 hover:bg-brand-500 hover:text-white rounded-lg text-xs font-semibold transition-colors">
+                                อ่านรายละเอียด
+                            </button>
+                        </div>
                     </div>
                     <button onclick="deleteNews(${n.id})" class="text-gray-400 hover:text-red-500 transition-colors">
                         <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -699,22 +806,62 @@
             `).join('');
         }
 
-        function handleCreateNews(e) {
+        async function handleCreateNews(e) {
             e.preventDefault();
             const title = document.getElementById('newsTitleInput').value;
-            const content = document.getElementById('newsContentInput').value;
+            const type = document.getElementById('newsTypeInput').value;
+            // ดึงข้อมูล HTML จาก Quill Editor (มี Tag สี/ตัวหนา/รูปภาพ)
+            const contentHTML = quillEditor.root.innerHTML;
+            const coverImage = extractFirstImage(contentHTML) || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80";
+            // ดึงแค่ข้อความล้วนไว้โชว์พรีวิวสั้นๆ ป้องกัน Layout พัง
+            const textPreview = quillEditor.getText().substring(0, 100) + '...';
 
-            state.news.unshift({
-                id: Date.now(),
-                title,
-                content,
-                date: new Date().toISOString().split('T')[0]
-            });
+           try {
+        // 2. ใช้ fetch ยิงข้อมูลไปหา Backend ที่ /api/news
+                const response = await fetch('/api/news', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // บอก Backend ว่าเราส่ง JSON ไปนะ
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        type: type,
+                        content_html: contentHTML,
+                        cover_image: coverImage
+                    })
+                });
 
-            addAuditLog("สร้างประกาศใหม่", title);
-            showToast("โพสต์ประกาศข่าวสารเรียบร้อยแล้ว");
-            document.getElementById('announcementForm').reset();
-            renderAll();
+                const result = await response.json();
+
+                // 3. เช็กผลลัพธ์
+                if (result.success) {
+                    // โพสต์สำเร็จ
+                    addAuditLog("สร้างประกาศใหม่", title);
+                    showToast("โพสต์ประกาศข่าวสารลงระบบเรียบร้อยแล้ว!");
+                    
+                    // ล้างฟอร์มเตรียมพร้อมรับการพิมพ์ข่าวใหม่
+                    document.getElementById('announcementForm').reset();
+                    quillEditor.root.innerHTML = ''; 
+                    
+                    // หมายเหตุ: ตรงนี้นิวอาจจะเขียนฟังก์ชันโหลดข่าวจาก Database กลับมาแสดงผลในตารางของหน้า Admin ด้วยก็ได้ครับ
+                } else {
+                    // โพสต์ไม่สำเร็จ โชว์ Alert
+                    alert('ล้มเหลว: ' + result.message);
+                }
+
+            } catch (error) {
+                console.error('Error submitting news:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
+            }
+        }
+
+
+        // ฟังก์ชันดึงรูปภาพแรกจาก HTML มาเป็นรูปปกข่าว
+        function extractFirstImage(htmlContent) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            const img = tempDiv.querySelector('img');
+            return img ? img.src : null;
         }
 
         function deleteNews(newsId) {
@@ -722,6 +869,26 @@
             addAuditLog("ลบประกาศ", `ลบประกาศ ID: ${newsId}`);
             showToast("ลบประกาศเรียบร้อยแล้ว");
             renderAll();
+        }
+
+        /* ── NEWS MODAL ── */
+        function openNewsModal(newsId) {
+            const news = state.news.find(n => n.id === newsId);
+            if (!news) return;
+
+            document.getElementById('modalNewsTitle').innerText = news.title;
+            document.getElementById('modalNewsDate').innerText = news.date;
+            document.getElementById('modalNewsImage').src = news.image;
+            
+            // ใช้ innerHTML แทน innerText เพื่อให้การแต่งสี และตัวหนาแสดงผลได้
+            document.getElementById('modalNewsContent').innerHTML = news.contentHTML;
+
+            document.getElementById('newsDetailModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsDetailModal').classList.add('hidden');
         }
 
         /* ── AUDIT LOGS ── */
@@ -779,6 +946,58 @@
             document.getElementById('sidebar').classList.add('-translate-x-full');
             document.getElementById('sidebarOverlay').classList.add('hidden');
         }
+
+        //โพสข่าวหน้าเว็บ//
+
+        async function handleCreateNews(e) {
+            e.preventDefault();
+            
+            // 1. ดึงข้อมูลจากฟอร์มที่แอดมินพิมพ์
+            const title = document.getElementById('newsTitleInput').value;
+            const type = document.getElementById('newsTypeInput').value;
+            const contentHTML = quillEditor.root.innerHTML;
+            
+            // ดึงรูปภาพแรกสุดมาทำเป็นภาพปก (ถ้าไม่มีจะใช้ค่า null แทน)
+            const coverImage = extractFirstImage(contentHTML);
+
+            try {
+                // 2. ใช้ fetch() เพื่อส่งข้อมูล (POST) ไปยัง Backend API
+                const response = await fetch('/api/news', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // แปลงข้อมูลเป็น JSON ก่อนส่ง
+                    body: JSON.stringify({
+                        title: title,
+                        type: type,
+                        content_html: contentHTML,
+                        cover_image: coverImage
+                    })
+                });
+
+                const result = await response.json();
+
+                // 3. ตรวจสอบว่า Backend ตอบกลับมาว่าสำเร็จไหม
+                if (result.success) {
+                    addAuditLog("สร้างประกาศใหม่", title);
+                    showToast("โพสต์ประกาศข่าวสารลง Database เรียบร้อยแล้ว!");
+                    
+                    // ล้างข้อมูลในฟอร์มทิ้งเพื่อเตรียมโพสต์ข่าวต่อไป
+                    document.getElementById('announcementForm').reset();
+                    quillEditor.root.innerHTML = ''; 
+                    
+                    // (ถ้าทำระบบดึงข่าวจาก DB เสร็จแล้ว ค่อยเรียกฟังก์ชัน loadNews() ตรงนี้ เพื่อรีเฟรชหน้าจอ)
+                } else {
+                    alert('เกิดข้อผิดพลาด: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ครับ');
+            }
+        }
+
+
     </script>
 </body>
 </html>
